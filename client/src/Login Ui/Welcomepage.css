@@ -10,74 +10,35 @@
     display: flex;
     justify-content: center;
     height: 550px;
-    width: 35%;
-    box-shadow: 11px 12px 13px 12px rgb(207, 207, 207);
+    width: 100%;
     padding-top: 30px;
-    border-radius: 60px; 
-    background-color: white;
-  }
-  .imgs {
-      padding-top: 20px;
-      justify-content: center;
-      display: flex;
-    }
-  .container-image {
-    background-color: rgb(223, 221, 221); 
-    border-radius: 150px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    height: 115px;
-    width: 115px;
-  }
-  .profile {
-    height: 100px;
-    width: 100px;
-    border-radius: 130px;
-  } 
-
-  input{
-      width: 300px;
-      height: 50px;
-      border-radius: 60px;
-      box-shadow: inset 0px 0px 25px 0px #888;
-      border: none;
-      outline: none;
-      background-color: #fff;
+    background-image: linear-gradient(to right, #f15632 , #fbd254);
   }
 
-  .email{
-      height: 25px;
-      width: 25px;
-      position: absolute;
-      padding: 14px 0 0 25px;
+  .headline {
+    font-family: gt-super, Georgia, Cambria, "Times New Roman", Times, serif;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+    font-size: 106px;
+    letter-spacing: -0.05em;
+    line-height: 95px;
   }
 
-  .name{
-      padding-left: 70px;
-      font-size: 20px;
-  }
-  .second-input{
-      padding-top: 20px;
-  }
+  .subline {
+    font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: 400;
+    box-sizing: inherit;
 
+}
+  
   button{
       width: 380px;
       height: 50px;
       border-radius: 60px;
-      background-color: #e06666;
+      background-color: #0e0e0e;
       color: white;
       font-size: 25px;
       border: none;
+      cursor: pointer;
   }
-  .login-button{
-      padding-top: 25px;
-  }
-
-  .link{
-      font-size: 25px;
-      font-weight: 400;
-  }
-   a{
-       color: blue;
-   }
