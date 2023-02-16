@@ -1,0 +1,31 @@
+GET http://localhost:3500/api/users
+
+###
+
+GET http://localhost:3500/api/users/1
+
+###
+
+POST http://localhost:3500/api/users/signup
+Content-Type: application/json
+
+{ "name" : "Tyler", 
+"lastname" : "Hoover", 
+"username" : "Hooviesgarage" ,
+"speciality" : "PLACEHOLDER",
+"email" : "Tyler.Hoover91@gmail.com", 
+"password" : "Azerty123456",
+"address" : "Wichita, Kansas 24 St.Lake",
+"img" : "https://www.autobpa.com/wp-content/uploads/2021/06/20210630-hoovie-1.jpg",
+"age" : "31",
+"role" : "1"
+}
+
+###
+
+POST http://localhost:3500/api/users/signin
+Content-Type: application/json
+
+{ "email" : "Tyler.Hoover91@gmail.com",
+"password" : "Azerty123456" 
+}

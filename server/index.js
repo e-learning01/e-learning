@@ -1,27 +1,14 @@
 const express = require("express");
-const app = express()
-const port = 3000;
+const db = require("./model")
+const app = express() ; 
 const cors = require("cors");
-
-const authRoute = require('./routes/auth.route.js');
+const cookieParser = require("cookie-parser")
+const routes = require("./routes")
 
 app.use(cors())
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.json())
+app.use(cookieParser())
+app.use(express.urlencoded({ extended: true }));
+app.use('/api',routes)
 
-app.use('/api/auth', authRoute);
-
-app.get('/protected', authMiddleware, (req, res) => {
-  res.status(200).json({ message: 'This is a protected route!' });
-});
-
-app.listen(port, () => {
-console.log(`Server listening on port ${port}`);
-})
-
-module.exports = app;
-
-
-
-
-
+app.listen(3500,()=>{console.log("Listening")})
