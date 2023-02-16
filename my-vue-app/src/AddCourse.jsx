@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
+// import jwtDecode from "jwt-decode";
 const AddCourse = () => {
   const [coursename, setcoursename] = useState("");
   const [courseprice, setcourseprice] = useState("");
@@ -31,7 +32,7 @@ const AddCourse = () => {
         thumbnail: courseimage,
         gains: studentgains,
         video: coursevideo,
-        instructor: "",
+        instructor: data[0].idusers,
         cat: "",
       })
       .then((res) => {
@@ -39,6 +40,7 @@ const AddCourse = () => {
       });
   };
   return (
+    
     <div>
       <Container
         id="wrappercourse"
@@ -54,6 +56,7 @@ const AddCourse = () => {
           variant="h2"
           sx={{
             margin: "1",
+            fontFamily: " 'Raleway', sans-serif",
           }}
         >
           Add Course
@@ -65,91 +68,106 @@ const AddCourse = () => {
           sx={{ mt: "150px" }}
         >
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Course Name</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Course Name
+            </Typography>
             <TextField
               onChange={(e) => {
                 setcoursename(e.target.value);
               }}
               id="inputcourse"
-              label="Full Stack JavaScript"
+              label={coursename}
               variant="standard"
             ></TextField>
           </Grid>
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Course Price</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Course Price
+            </Typography>
             <TextField
               onChange={(e) => {
                 setcourseprice(e.target.value);
               }}
               id="inputcourseprice"
-              label="800USD"
+              label={courseprice}
               variant="standard"
             ></TextField>
           </Grid>
 
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Course Duration</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Course Duration
+            </Typography>
             <TextField
               onChange={(e) => {
                 setcoursduration(e.target.value);
               }}
               id="inputcourseduration"
-              label="18 Weeks"
+              label={courseduration}
               variant="standard"
             ></TextField>
           </Grid>
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Course Language</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Course Language
+            </Typography>
             <TextField
               onChange={(e) => {
                 setcourselanguage(e.target.value);
               }}
               id="inputcourselanguage"
-              label="language"
+              label={courselanguage}
               variant="standard"
             ></TextField>
           </Grid>
 
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Students Gains</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Students Gains
+            </Typography>
             <TextField
               onChange={(e) => {
                 setstudentgains(e.target.value);
               }}
               id="inputcoursegains"
-              label="gains"
+              label={studentgains}
               variant="standard"
             ></TextField>
           </Grid>
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Course thumbnail </Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Course thumbnail{" "}
+            </Typography>
             <TextField
               onChange={(e) => {
                 setcourseimage(e.target.value);
               }}
               id="inputimgcourse"
-              label="image"
+              label="Thumbnail link "
               variant="standard"
             ></TextField>
           </Grid>
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Course Description</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Course Description
+            </Typography>
             <TextField
               onChange={(e) => {
                 setcoursedescription(e.target.value);
               }}
               id="inputcoursedescription"
-              label=""
               variant="standard"
               type="text"
               multiline
               rows={5}
               sx={{ width: "350px" }}
-              defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur at metus hendrerit nunc suscipit bibendum vel vitae enim. Phasellus elit dolor, vehicula sed dui feugiat, finibus varius ante. Aenean pharetra mollis nisl, eu ultrices lorem laoreet non. Nunc fermentum, ante nec sollicitudin venenatis, purus tellus ultricies libero, vel molestie felis orci a orci. Sed maximus, ante quis cursus euismod, eros turpis porttitor turpis, non luctus quam urna in lacus. Maecenas sapien diam, mattis vitae porttitor sit amet, tempor at risus. Proin eu enim lectus. Suspendisse potenti. Maecenas aliquam, ligula id ornare laoreet, augue est mollis lorem, et luctus sem tellus eget eros."
+              defaultValue={coursedescription}
             ></TextField>
           </Grid>
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Course Video </Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Course Video{" "}
+            </Typography>
             <TextField
               onChange={(e) => {
                 setcoursevideo(e.target.value);
@@ -228,16 +246,35 @@ const AddCourse = () => {
             }}
           >
             <Grid sx={{ mx: "30px" }}>
-              <Typography variant="caption">Home</Typography>
+              <Typography
+                sx={{ fontFamily: " 'Raleway', sans-serif" }}
+                variant="caption"
+              >
+                Home
+              </Typography>
             </Grid>
             <Grid sx={{ mx: "30px" }}>
-              <Typography variant="caption">About BrainLab</Typography>
+              <Typography
+                sx={{ fontFamily: " 'Raleway', sans-serif" }}
+                variant="caption"
+              >
+                About BrainLab
+              </Typography>
             </Grid>
             <Grid sx={{ mx: "30px" }}>
-              <Typography variant="caption">All Courses</Typography>
+              <Typography
+                sx={{ fontFamily: " 'Raleway', sans-serif" }}
+                variant="caption"
+              >
+                All Courses
+              </Typography>
             </Grid>
             <Grid sx={{ marginTop: "110px", marginLeft: "auto" }}>
-              <Typography variant="caption" color="initial">
+              <Typography
+                sx={{ fontFamily: " 'Raleway', sans-serif" }}
+                variant="caption"
+                color="initial"
+              >
                 Copyright ©2023 BrainLab.
               </Typography>
             </Grid>

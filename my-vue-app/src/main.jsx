@@ -5,14 +5,16 @@ import TeacherProfile from "./TeacherProfile";
 import StudentProfile from "./StudentProfile";
 import AddCourse from "./AddCourse";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import SideBar from "./sidebar";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <SideBar />
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<TeacherProfile />}></Route>
+        <Route path="/teacherProfile" element={<TeacherProfile />}></Route>
         <Route path="/studentprofile" element={<StudentProfile />}></Route>
-        <Route path="/addcourse" element={<AddCourse />}></Route>
+        <Route path="/" element={<AddCourse />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

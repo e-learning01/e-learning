@@ -28,6 +28,7 @@ const StudentProfile = () => {
   const [studentage, setstudentage] = useState(0);
 
   const [picChosen, setpicChosen] = useState({});
+  const [uploadedImg, setuploadedImg] = useState();
   const uploadPic = () => {
     const picd = new FormData();
     picd.append("file", picChosen);
@@ -35,30 +36,32 @@ const StudentProfile = () => {
 
     axios
       .post("https://api.cloudinary.com/v1_1/du5ydewvs/image/upload", picd)
-      .then((res) =>
-        axios.post("database", {
-          image: res.data.url,
-        })
-      );
+      .then((res) => {
+        console.log(res.data);
+        const uploadedImg = res.data.url;
+        setuploadedImg(uploadedImg);
+      });
   };
   let navigate = useNavigate();
   const routeHome = () => {
-    let teacher = `/`;
+    let home = `/teacherprofile`;
     navigate(home);
   };
   const deleteStudent = () => {
-    axios.delete("");
+    axios.delete(`http://localhost:3000/api/users/${data[0].idusers}`);
   };
   const EditStudent = () => {
     axios
-      .put(`http://localhost:3000/api/${data[0].username}`, {
+      .put(`http://localhost:3000/api/users/${data[0].idusers}/put`, {
         name: studentname,
         lastname: studentlastname,
         username: studentusername,
         email: studentmail,
         password: studentpassword,
         address: studentaddress,
+        img: uploadedImg,
         age: studentage,
+        role: 0,
       })
       .then((res) => {
         console.log(res);
@@ -81,13 +84,14 @@ const StudentProfile = () => {
           variant="h2"
           sx={{
             margin: "1",
+            fontFamily: " 'Raleway', sans-serif",
           }}
         >
           Student Info
         </Typography>
         <Avatar
           alt="Remy Sharp"
-          src="https://t4.ftcdn.net/jpg/01/12/09/17/360_F_112091769_vWEmDiwVIpO4H1plGuhYgnmduTuiGUh2.jpg"
+          src={uploadedImg}
           sx={{
             width: 300,
             height: 300,
@@ -136,12 +140,20 @@ const StudentProfile = () => {
             component="label"
             onClick={() => uploadPic()}
           >
-            <Typography variant="overline"> Update </Typography>
+            <Typography
+              sx={{ fontFamily: " 'Raleway', sans-serif" }}
+              variant="overline"
+            >
+              {" "}
+              Update{" "}
+            </Typography>
           </Button>
         </Grid>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Name</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Name
+            </Typography>
             <TextField
               onChange={(e) => {
                 setstudentname(e.target.value);
@@ -152,7 +164,9 @@ const StudentProfile = () => {
             ></TextField>
           </Grid>
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Last Name</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Last Name
+            </Typography>
             <TextField
               onChange={(e) => {
                 setstudentlastname(e.target.value);
@@ -163,7 +177,9 @@ const StudentProfile = () => {
             ></TextField>
           </Grid>
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>User Name</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              User Name
+            </Typography>
             <TextField
               onChange={(e) => {
                 setstudentusername(e.target.value);
@@ -175,7 +191,9 @@ const StudentProfile = () => {
           </Grid>
 
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>E-mail</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              E-mail
+            </Typography>
             <TextField
               onChange={(e) => {
                 setstudentmail(e.target.value);
@@ -187,7 +205,9 @@ const StudentProfile = () => {
             ></TextField>
           </Grid>
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Password</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Password
+            </Typography>
             <TextField
               onChange={(e) => {
                 setstudentpassword(e.target.value);
@@ -199,7 +219,9 @@ const StudentProfile = () => {
             ></TextField>
           </Grid>
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Address</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Address
+            </Typography>
             <TextField
               onChange={(e) => {
                 setstudentaddress(e.target.value);
@@ -211,7 +233,9 @@ const StudentProfile = () => {
           </Grid>
 
           <Grid xs={6} sx={{ my: "50px" }}>
-            <Typography>Age</Typography>
+            <Typography sx={{ fontFamily: " 'Raleway', sans-serif" }}>
+              Age
+            </Typography>
             <TextField
               onChange={(e) => {
                 setstudentage(e.target.value);
@@ -242,7 +266,10 @@ const StudentProfile = () => {
                       "Deleted!",
                       "Your account has been deleted.",
                       "success",
-                      (onclick = { deleteStudent, routeHome })
+                      (onclick = () => {
+                        deleteStudent();
+                        routeHome();
+                      })
                     );
                   }
                 });
@@ -281,7 +308,6 @@ const StudentProfile = () => {
           width: "100%",
 
           bottom: 0,
-          width: "100%",
         }}
         component="footer"
         square
@@ -316,16 +342,35 @@ const StudentProfile = () => {
             }}
           >
             <Grid sx={{ mx: "30px" }}>
-              <Typography variant="caption">Home</Typography>
+              <Typography
+                sx={{ fontFamily: " 'Raleway', sans-serif" }}
+                variant="caption"
+              >
+                Home
+              </Typography>
             </Grid>
             <Grid sx={{ mx: "30px" }}>
-              <Typography variant="caption">About BrainLab</Typography>
+              <Typography
+                sx={{ fontFamily: " 'Raleway', sans-serif" }}
+                variant="caption"
+              >
+                About BrainLab
+              </Typography>
             </Grid>
             <Grid sx={{ mx: "30px" }}>
-              <Typography variant="caption">All Courses</Typography>
+              <Typography
+                sx={{ fontFamily: " 'Raleway', sans-serif" }}
+                variant="caption"
+              >
+                All Courses
+              </Typography>
             </Grid>
             <Grid sx={{ marginTop: "110px", marginLeft: "auto" }}>
-              <Typography variant="caption" color="initial">
+              <Typography
+                sx={{ fontFamily: " 'Raleway', sans-serif" }}
+                variant="caption"
+                color="initial"
+              >
                 Copyright ©2023 BrainLab.
               </Typography>
             </Grid>
