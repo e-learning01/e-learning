@@ -47,8 +47,13 @@ const TeacherProfile = () => {
   };
   let navigate = useNavigate();
   const routeHome = () => {
+<<<<<<< HEAD
     let home = `/`;
     navigate(home);
+=======
+    let student = `/studentprofile`;
+    navigate(student);
+>>>>>>> 25107466a29e84d21ed1918bd0cb152f4d7005dd
   };
 
   const deleteTeacher = () => {

@@ -44,8 +44,13 @@ const StudentProfile = () => {
   };
   let navigate = useNavigate();
   const routeHome = () => {
+<<<<<<< HEAD
     let home = `/teacherprofile`;
     navigate(home);
+=======
+    let teacher = `/`;
+    navigate(teacher);
+>>>>>>> 25107466a29e84d21ed1918bd0cb152f4d7005dd
   };
   const deleteStudent = () => {
     axios.delete(`http://localhost:3000/api/users/${data[0].idusers}`);
