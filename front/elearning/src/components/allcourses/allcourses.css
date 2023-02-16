@@ -1,0 +1,107 @@
+
+.components {
+    display: flex;
+}
+.snapshot {
+    width: 200px;
+    height: auto;
+}
+.list{
+    display: flex;
+    width: 80%;
+    
+    border-bottom: 1px solid #d5d5d5;
+    margin-left: 30px;
+    height: 22vh;
+}
+.detail{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+}
+.img {
+width: 25%;
+}
+.img img {
+    border: 1px solid black;
+}
+h4,h6,h3,p{
+    margin: 0px;
+    font-family: 'Shippori Antique B1', sans-serif;
+    margin-left: 15px ;
+}
+.detail h4 {
+    margin-left: 15px ;
+}
+.detail h6 {
+    color: rgb(161, 161, 161);
+}
+.time{
+    color: rgb(88, 86, 86);
+    font-size: "0px";
+}
+h2  {
+    font-family: 'Shippori Antique B1', sans-serif;
+    font-size: "3px";
+    margin-bottom: 50px;
+    margin-left: 2.4rem;
+}
+.moneyBack {
+    display: flex;
+    border: 1px solid rgba(0, 0, 0, 0.437);
+    padding-left: 50px;
+    align-items: center;
+    height: 50px;
+    width: 88%;
+    margin-left: 2.4rem ;
+    margin-bottom: 20px;
+}
+.moneyBack h4 {
+    padding: 0px;
+    margin: 0px;
+    
+    margin-left: 4px;
+}
+.PRICE {
+    margin-left: 50px; 
+}
+.all {
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+.lists {
+    display: flex;
+ width: 100%;
+    flex-direction: column;
+}
+.tooltip {
+ padding: 20px;
+    display: none;
+}
+.all:hover .tooltip{
+    display: block;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 2px 16px 5px rgba(0,0,0,0.33);
+    max-width: fit-content;
+    border-radius: 5px;
+    height: 200px;
+    transform: translate(50%,-100%);
+  
+    }
+.tooltip p {
+    margin-top: 20px;
+}
+.border{
+    position:absolute ;
+    content:"";
+    background:#fff;
+    width:100vw;
+    display:none;
+  
+}
+.all:hover .border {
+    display:block;
+}
