@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios"
+import { v2 as cloudinary } from 'cloudinary';
 
 const Register = (props) => {
     const [email, setEmail] = useState('');
@@ -8,11 +9,12 @@ const Register = (props) => {
     const [name, setName] = useState('');
     const [lastname, setLastName] = useState('');
     const [speciality, setSepciality] = useState('');
-    const [img, setImg] = useState('');
+    const [img, setImg] = useState(null);
     const [username, setUsername] = useState('');
     const [address, setAdress] = useState('');
     const [age, setAge] = useState('');
     const [role, setRole] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     //const [transitionState, setTransitionState] = useState(false)
 
     //let firstnameC;
@@ -28,11 +30,37 @@ const Register = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (password !== conPass) {
+            setErrorMessage('Passwords do not match.');
+            return;
+          }
+
+        const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        if (!passwordRules.test(password)) {
+          setErrorMessage('Please enter a password with at least 8 characters, a capital letter, and a number.');
+          return;
+        }
+
         try {
+            const checkUsername = await axios.get(`/users/${username}`);
+            if (checkUsername.data.usernameExists) {
+            setErrorMessage('This username is already in use. Please use a different username.');
+            return;
+           }
+        //    if (img) {
+        //     const result = await cloudinary.uploader.upload(img, {
+        //       upload_preset: 'your_upload_preset',
+        //     })}
             const response = await axios.post('/signup', { name, lastname, username, speciality, email, password, address, img, role });
             console.log(response.data);
           } catch (error) {
             console.error(error.response.data);
+            if (error.response.status === 409) {
+                setErrorMessage('This email is already in use. Please use a different email.');
+              } else {
+                setErrorMessage('An error occurred. Please try again later.');
+              }
           }
     };
     return (
@@ -74,6 +102,7 @@ const Register = (props) => {
             <label htmlFor="img">Profile picture:</label>
             <input value={img} onChange={(e) => setImg( e.target.value)}type="file" id="img"></input>
             <button type="submit">Register</button>
+            {errorMessage && <p>{errorMessage}</p>}
         </form>
         <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here!</button>
     </div>

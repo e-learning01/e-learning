@@ -15,6 +15,11 @@ const Login = (props) => {
             console.log(response.data);
           } catch (error) {
             console.error(error.response.data);
+            if (error.response.status === 401) {
+                setErrorMessage('Incorrect email or password.');
+              } else {
+                setErrorMessage('An error occurred. Please try again later.');
+              }
           }
     };
     return (
