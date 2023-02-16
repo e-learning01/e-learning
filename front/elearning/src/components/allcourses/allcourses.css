@@ -98,9 +98,9 @@ h2  {
     position:absolute ;
     content:"";
     background:#fff;
-    width:100%;
+    width:100vw;
     display:none;
-    overflow-y: scroll;
+  
 }
 .all:hover .border {
     display:block;
