@@ -91,6 +91,33 @@ const User = sequelize.define("users",{
   catch(err) {
     return err
   }
+  },
+  UpdateUser : async (user,id)=>{
+    try {
+  
+      const Mainuser = await User.findOne({where:{idusers:id}})
+      if (bcrypt.compareSync(user.password, Mainuser.password) ) {
+        user.password = Mainuser.password
+        }
+      else {
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(user.password, salt);
+        user.password=hash ; }
+      await User.update(user,{where:{idusers : id}})
+      const newuser = await User.findOne({where:{idusers:id}})
+  return newuser;
+  }
+    catch(e) {
+      console.log(e)
+    }
+  },
+  deleteUser : async (id ) => {
+    try {
+      await User.destroy({where:{idusers:id}})
+    }
+    catch (e) {
+      console.log(e)
+    }
   }
 
  }

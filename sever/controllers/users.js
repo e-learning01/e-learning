@@ -1,4 +1,4 @@
-const  {findAll,findOne,createOne,signIn} = require("../model/mainSchema")
+const  {deleteUser,findAll,findOne,createOne,signIn,UpdateUser} = require("../model/mainSchema")
 const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv")
 dotenv.config()
@@ -13,6 +13,8 @@ module.exports= {
             } 
     },
     HandleOneUser : async (req,res) => {
+        if(req.user.idusers!==parseInt(req.params.id)) {res.sendStatus(401)}
+        else {
         try {
             const user = await findOne(req.params.id)
         res.send(user)
@@ -20,6 +22,7 @@ module.exports= {
         catch(err) {
             res.send([])
         }
+    }
     },
     addOneUser : async (req,res)=> {
         try {
@@ -44,5 +47,33 @@ module.exports= {
            catch(err) {
                res.send(err)
            }
+    },
+    HandleUpdateUser : async (req,res) => {
+        if(req.user.idusers!==parseInt(req.params.id)) {res.sendStatus(401)}
+        
+        else {
+            try {
+          const user = await UpdateUser(req.body,req.user.idusers) 
+          res.send(user)  
+        
+            }
+            catch(err) {
+               console.log(err)
+    }
+}
+    },
+    DelteUser : async (req,res) => {
+        console.log(req.user.idusers , " : ", req.params.id)
+        if(req.user.idusers!==parseInt(req.params.id)) {res.sendStatus(401)}
+        else {
+        try {
+             await deleteUser(req.params.id) 
+            res.sendStatus(200)  
+          
+              }
+              catch(err) {
+                 console.log(err)
+      }   
+    }
     }
 }
