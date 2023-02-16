@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`users` (
   `img` VARCHAR(450) NOT NULL,
   `age` INT NOT NULL,
   `role` INT NOT NULL,
+  `speciality` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idusers`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
