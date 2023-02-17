@@ -23,7 +23,7 @@ const AddCourse = () => {
   const Addcour = (post) => {
     console.log(post);
     axios
-      .post(`http://localhost:3000/api/addCourse`, {
+      .post(`http://localhost:5173/api/addCourse`, {
         name: coursename,
         price: courseprice,
         description: coursedescription,

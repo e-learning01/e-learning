@@ -8,7 +8,6 @@ const {
 } = require("../model/mainSchema");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
-const cloudinary = require("../cloudinary.js");
 dotenv.config();
 module.exports = {
   HandleFindUser: async (req, res) => {
@@ -33,8 +32,8 @@ module.exports = {
   },
   addOneUser: async (req, res) => {
     try {
-      await createOne(req.body);
-      res.send("created");
+      const response = await createOne(req.body);
+      res.send(response);
     } catch (err) {
       res.send(err);
     }
@@ -46,10 +45,11 @@ module.exports = {
         const token = jwt.sign(response, process.env.JWT_SECRET, {
           expiresIn: "1h",
         });
-        res
-          .cookie("access_token", token, { httpOnly: true })
-          .status(200)
-          .send(response);
+        res.cookie("access_token", token, {
+          maxAge: 1060 * 10 * 60,
+          httpOnly: false,
+        });
+        res.status(200).send({ ...response, token });
       } else {
         res.send(response);
       }

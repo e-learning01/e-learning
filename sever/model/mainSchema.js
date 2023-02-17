@@ -1,6 +1,7 @@
-const { Sequelize, Model, DataTypes, where } = require("sequelize");
+const { Sequelize, Model, DataTypes, where, or } = require("sequelize");
 const sequelize = require("./");
 const bcrypt = require("bcryptjs");
+
 const User = sequelize.define("users", {
   idusers: {
     type: DataTypes.INTEGER,
@@ -8,18 +9,17 @@ const User = sequelize.define("users", {
     primaryKey: true,
     autoIncrement: true,
   },
-  name: { type: DataTypes.STRING(45), allowNull: false },
-  lastname: { type: DataTypes.STRING(45), allowNull: false },
-  username: { type: DataTypes.STRING, allowNull: false, unique: true },
-  speciality: { type: DataTypes.STRING(45), allowNull: true },
-  email: { type: DataTypes.STRING, allowNull: false, unique: true },
-  password: { type: DataTypes.STRING, allowNull: false },
-  address: { type: DataTypes.STRING(45), allowNull: false },
-  img: { type: DataTypes.STRING(450), allowNull: false },
+  name: { type: DataTypes.TEXT(45), allowNull: false, unique: true },
+  lastname: { type: DataTypes.TEXT(45), allowNull: false },
+  username: { type: DataTypes.TEXT(45), allowNull: false },
+  email: { type: DataTypes.TEXT(45), allowNull: false },
+  password: { type: DataTypes.TEXT, allowNull: false },
+  address: { type: DataTypes.TEXT(45), allowNull: false },
+  img: { type: DataTypes.TEXT(450), allowNull: false },
   age: { type: DataTypes.INTEGER, allowNull: false },
   role: { type: DataTypes.INTEGER, allowNull: false },
+  speciality: { type: DataTypes.TEXT(45), allowNull: false },
 });
-// sequelize.sync({ force: true });
 module.exports = {
   findAll: async () => {
     try {
@@ -38,14 +38,24 @@ module.exports = {
     }
   },
   createOne: async (user) => {
-    const { password } = user;
-    var salt = bcrypt.genSaltSync(10);
-    var hash = bcrypt.hashSync(password, salt);
-    user.password = hash;
-    try {
-      User.create(user);
-    } catch (err) {
-      return err;
+    const mail = await User.findOne({ where: { email: user.email } });
+    const username = await User.findOne({ where: { username: user.username } });
+
+    if (!mail && !username) {
+      const { password } = user;
+      var salt = bcrypt.genSaltSync(10);
+      var hash = bcrypt.hashSync(password, salt);
+      user.password = hash;
+      try {
+        User.create(user);
+        return "user created";
+      } catch (err) {
+        return err;
+      }
+    } else if (username && mail) {
+      return " user exits ! please check your credentials";
+    } else if (!mail && username) {
+      return "please choose another username";
     }
   },
   signIn: async (user) => {

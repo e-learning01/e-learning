@@ -122,7 +122,7 @@ const SideBar = () => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List sx={{ mt: "20px", pt: "20px" }}>
+        <List>
           {["Home", "All Course", "My Courses "].map((text, index) => (
             <ListItem sx={{ my: "40px" }} key={text} disablePadding>
               <ListItemButton>
@@ -135,7 +135,7 @@ const SideBar = () => {
           ))}
         </List>
         <Divider sx={{ mb: "-190px", mt: "200px" }}></Divider>
-        <List sx={{ mt: "120px", pt: "20px" }}>
+        <List sx={{ mt: "17px", pt: "20px" }}>
           {["Dark Mode ", "Log Out"].map((text, index) => (
             <ListItem sx={{ my: "65px" }} key={text} disablePadding>
               <ListItemButton>

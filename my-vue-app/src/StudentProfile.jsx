@@ -17,7 +17,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import Cookies from "universal-cookie";
 
 const StudentProfile = () => {
   const [studentname, setstudentname] = useState("");
@@ -30,7 +30,7 @@ const StudentProfile = () => {
 
   const [picChosen, setpicChosen] = useState({});
   const [uploadedImg, setuploadedImg] = useState();
-
+  const cookies = new Cookies();
   const uploadPic = () => {
     const picd = new FormData();
     picd.append("file", picChosen);
@@ -50,11 +50,11 @@ const StudentProfile = () => {
     navigate(teacherprofile);
   };
   const deleteStudent = () => {
-    axios.delete(`http://localhost:3000/api/users/${Cookies.get("idusers")}`);
+    axios.delete(`http://localhost:5173/api/users/${cookies.get("idusers")}`);
   };
   const EditStudent = () => {
     axios
-      .put(`http://localhost:3000/api/users/${Cookies.get("idusers")}/put`, {
+      .put(`http://localhost:5173/api/users/${cookies.get("idusers")}/put`, {
         name: studentname,
         lastname: studentlastname,
         username: studentusername,

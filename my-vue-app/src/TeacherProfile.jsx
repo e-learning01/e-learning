@@ -53,11 +53,11 @@ const TeacherProfile = () => {
   };
 
   const deleteTeacher = () => {
-    axios.delete(`http://localhost:3000/api/users/${Cookies.get("idusers")}`);
+    axios.delete(`http://localhost:5173/api/users/${Cookies.get("idusers")}`);
   };
   const EditTeacher = () => {
     axios
-      .put(`http://localhost:3000/api/users/${Cookies.get("idusers")}/put`, {
+      .put(`http://localhost:5173/api/users/${Cookies.get("idusers")}/put`, {
         name: teachername,
         img: uploadedImage,
         lastname: teacherlastname,
