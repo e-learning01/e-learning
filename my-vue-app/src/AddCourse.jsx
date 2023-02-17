@@ -20,7 +20,7 @@ const AddCourse = () => {
   const [courseimage, setcourseimage] = useState("");
   const [studentgains, setstudentgains] = useState("");
   const [coursevideo, setcoursevideo] = useState("");
-  const AddCourse = (post) => {
+  const Addcour = (post) => {
     console.log(post);
     axios
       .post(`http://localhost:3000/api/addCourse`, {
@@ -40,7 +40,6 @@ const AddCourse = () => {
       });
   };
   return (
-    
     <div>
       <Container
         id="wrappercourse"
@@ -187,7 +186,7 @@ const AddCourse = () => {
             }}
           >
             <Button
-              onClick={() => AddCourse}
+              onClick={() => Addcour}
               variant="outlined"
               type="submit"
               sx={{

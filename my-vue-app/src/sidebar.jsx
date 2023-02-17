@@ -18,6 +18,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import Brightness2SharpIcon from "@mui/icons-material/Brightness2Sharp";
+import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
 
 const drawerWidth = 240;
 
@@ -120,9 +122,9 @@ const SideBar = () => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+        <List sx={{ mt: "20px", pt: "20px" }}>
+          {["Home", "All Course", "My Courses "].map((text, index) => (
+            <ListItem sx={{ my: "40px" }} key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -132,13 +134,17 @@ const SideBar = () => {
             </ListItem>
           ))}
         </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+        <Divider sx={{ mb: "-190px", mt: "200px" }}></Divider>
+        <List sx={{ mt: "120px", pt: "20px" }}>
+          {["Dark Mode ", "Log Out"].map((text, index) => (
+            <ListItem sx={{ my: "65px" }} key={text} disablePadding>
               <ListItemButton>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 3 === 0 ? (
+                    <Brightness2SharpIcon />
+                  ) : (
+                    <LogoutSharpIcon />
+                  )}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItemButton>

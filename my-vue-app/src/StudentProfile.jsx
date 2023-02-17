@@ -11,12 +11,13 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
-import { PhotoCamera } from "@mui/icons-material";
+import { Cookie, PhotoCamera } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 // import { borderRadius } from "@mui/system";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const StudentProfile = () => {
   const [studentname, setstudentname] = useState("");
@@ -29,6 +30,7 @@ const StudentProfile = () => {
 
   const [picChosen, setpicChosen] = useState({});
   const [uploadedImg, setuploadedImg] = useState();
+
   const uploadPic = () => {
     const picd = new FormData();
     picd.append("file", picChosen);
@@ -38,26 +40,21 @@ const StudentProfile = () => {
       .post("https://api.cloudinary.com/v1_1/du5ydewvs/image/upload", picd)
       .then((res) => {
         console.log(res.data);
-        const uploadedImg = res.data.url;
+        const uploadedImg = res.data.secure_url;
         setuploadedImg(uploadedImg);
       });
   };
   let navigate = useNavigate();
   const routeHome = () => {
-<<<<<<< HEAD
-    let home = `/teacherprofile`;
-    navigate(home);
-=======
-    let teacher = `/`;
-    navigate(teacher);
->>>>>>> 25107466a29e84d21ed1918bd0cb152f4d7005dd
+    let teacherprofile = `/teacherprofile`;
+    navigate(teacherprofile);
   };
   const deleteStudent = () => {
-    axios.delete(`http://localhost:3000/api/users/${data[0].idusers}`);
+    axios.delete(`http://localhost:3000/api/users/${Cookies.get("idusers")}`);
   };
   const EditStudent = () => {
     axios
-      .put(`http://localhost:3000/api/users/${data[0].idusers}/put`, {
+      .put(`http://localhost:3000/api/users/${Cookies.get("idusers")}/put`, {
         name: studentname,
         lastname: studentlastname,
         username: studentusername,
@@ -96,7 +93,7 @@ const StudentProfile = () => {
         </Typography>
         <Avatar
           alt="Remy Sharp"
-          src={uploadedImg}
+          src={Cookies.get("img")}
           sx={{
             width: 300,
             height: 300,
@@ -273,7 +270,10 @@ const StudentProfile = () => {
                       "success",
                       (onclick = () => {
                         deleteStudent();
-                        routeHome();
+
+                        onclick = () => {
+                          routeHome();
+                        };
                       })
                     );
                   }

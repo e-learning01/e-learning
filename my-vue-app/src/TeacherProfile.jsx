@@ -13,12 +13,13 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
-import { PhotoCamera } from "@mui/icons-material";
+import { Cookie, PhotoCamera, Token } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 // import { borderRadius } from "@mui/system";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const TeacherProfile = () => {
   const [teachername, setteachername] = useState("");
@@ -41,27 +42,22 @@ const TeacherProfile = () => {
       .post("https://api.cloudinary.com/v1_1/du5ydewvs/image/upload", pict)
       .then((res) => {
         console.log(res.data);
-        const uploadedimage = res.data.url;
+        const uploadedimage = res.data.secure_url;
         setuploadedImage(uploadedimage);
       });
   };
   let navigate = useNavigate();
   const routeHome = () => {
-<<<<<<< HEAD
-    let home = `/`;
-    navigate(home);
-=======
-    let student = `/studentprofile`;
-    navigate(student);
->>>>>>> 25107466a29e84d21ed1918bd0cb152f4d7005dd
+    let studentprofile = `/studentprofile`;
+    navigate(studentprofile);
   };
 
   const deleteTeacher = () => {
-    axios.delete(`http://localhost:3000/api/users/${data[0].idusers}`);
+    axios.delete(`http://localhost:3000/api/users/${Cookies.get("idusers")}`);
   };
   const EditTeacher = () => {
     axios
-      .put(`http://localhost:3000/api/users/${data[0].idusers}/put`, {
+      .put(`http://localhost:3000/api/users/${Cookies.get("idusers")}/put`, {
         name: teachername,
         img: uploadedImage,
         lastname: teacherlastname,
@@ -291,7 +287,11 @@ const TeacherProfile = () => {
                     "Your account has been deleted.",
                     "success",
                     (onclick = () => {
-                      routeHome();
+                      deleteTeacher();
+
+                      onclick = () => {
+                        routeHome();
+                      };
                     })
                   );
                 }
