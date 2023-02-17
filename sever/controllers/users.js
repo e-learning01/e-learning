@@ -26,8 +26,8 @@ module.exports= {
     },
     addOneUser : async (req,res)=> {
         try {
-         await createOne(req.body)
-           res.send("created")
+         const response = await createOne(req.body)
+           res.send(response)
         }
         catch(err) {
             res.send(err)

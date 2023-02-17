@@ -1,6 +1,7 @@
-const { Sequelize, Model, DataTypes, where } = require("sequelize");
+const { Sequelize, Model, DataTypes, where, or } = require("sequelize");
 const sequelize = require("./")
 const bcrypt = require('bcryptjs');
+const { isCSSRequest } = require("vite");
 const User = sequelize.define("users",{
   idusers: { type: DataTypes.INTEGER,
     allowNull: false,
@@ -35,6 +36,9 @@ const User = sequelize.define("users",{
   role:  { type: DataTypes.INTEGER,
     allowNull: false,
     },
+    speciality: { type: DataTypes.TEXT(45),
+      allowNull: false,
+      },
  });
  module.exports={
   findAll : async ()=> {
@@ -58,15 +62,27 @@ const User = sequelize.define("users",{
       }
   },
   createOne : async (user) => {
+    const mail = await User.findOne({where:{email:user.email}})
+    const username = await User.findOne({where:{username:user.username}})
+  
+    if (!mail && !username) {
     const {password}=user ;
     var salt = bcrypt.genSaltSync(10);
     var hash = bcrypt.hashSync(password, salt);
     user.password=hash ; 
     try {
       User.create(user)
+      return "user created"
     }
     catch (err) {
       return err 
+    }}
+    else if (username && mail){
+      return " user exits ! please check your credentials"
+
+    }
+    else if (!mail && username) {
+      return "please choose another username"
     }
   },
   signIn : async (user) => {
