@@ -1,0 +1,142 @@
+.App {
+  text-align: center;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-image: linear-gradient(79deg, #ebc0fd, #C66FBC 48%, #F7944D);
+}
+
+.parent {
+  display: flex;
+  transition: all 0.4s ease-in-out;
+}
+
+.neighboring-banner {
+  display: flex;
+  min-height: 100vh;
+  text-align: left;
+  justify-content: center;
+  padding: 9rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 0.5rem;
+  background-image: linear-gradient(79deg, #30d0d04f, #3308674b);
+  inline-size: 150px;
+  overflow-wrap: break-word;
+  transition: all 0.4s ease-in-out;
+}
+
+ul {
+  list-style-type: none;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+ul > :last-child {
+  margin-top: 220%;
+}
+
+.lName {
+  font-weight: bold;
+  font-size: 106px;
+  letter-spacing: -0.05em;
+  line-height: 95px;
+  color: #00000080;
+  width: 100%;
+  float:left;
+  height: 80px;
+}
+
+.headline {
+  margin-top: 5%;
+  font-family: gt-super, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  font-size: 90px;
+  letter-spacing: -0.05em;
+  line-height: 95px;
+  color: #000;
+  width: 100%;
+  float:left;
+  height: 80px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+} 
+
+.subline {
+  font-weight: bold;
+  font-family: gt-super, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-feature-settings: 'pnum' on, 'lnum' on;
+  font-size: 20px;
+  letter-spacing: -0.05em;
+  line-height: 95px;
+  color: #0000005b;
+  width: 100%;
+  float:left;
+  height: 80px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20%;
+}
+
+.footer {
+  font-weight: bold;
+  color: #000;
+  width: 100%;
+  float:left;
+  height: 80px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-form-container, .login-form, .register-form {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s ease-in-out;
+}
+
+@media screen and (min-width: 600px) {
+  .auth-form-container {
+    padding: 10rem;
+    border: 1px solid white;
+    border-radius: 10px;
+    margin: 0.5rem;
+  }
+}
+
+label {
+  text-align: left;
+  padding: 0.25rem 0;
+}
+
+input, select {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+}
+
+button {
+  font-weight: bold;
+  border: none;
+  background-image: linear-gradient(79deg, #f5f7fa, #e2c3e2);
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #836da8;
+}
+
+.link-btn {
+  background: none;
+  color: white;
+  text-decoration: underline;
+}
