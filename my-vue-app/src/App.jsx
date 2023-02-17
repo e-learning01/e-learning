@@ -1,35 +1,67 @@
 import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-import UserProfile from "./StudentProfile.jsx";
 
-function App() {
-  // const [count, setCount] = useState(0);
+// Import MUI stuff
+import "@fontsource/roboto"; // Loading Roboto font. MUI was designed with this font in mind.
+import {
+  Card,
+  CardHeader,
+  Switch,
+  CardContent,
+  Box,
+  Container,
+  Typography,
+  FormGroup,
+  FormControlLabel,
+  CssBaseline,
+} from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
+// Define theme settings
+const light = {
+  palette: {
+    mode: "light",
+  },
+};
+
+const dark = {
+  palette: {
+    mode: "dark",
+  },
+};
+
+const App = () => {
+  // The light theme is used by default
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  // This function is triggered when the Switch component is toggled
+  const changeTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
 
   return (
-    <div className="App">
-      {/* <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p> */}
-      <UserProfile />
-    </div>
+    <ThemeProvider theme={isDarkTheme ? createTheme(dark) : createTheme(light)}>
+      <CssBaseline />
+      <Container>
+        <div className="App">
+          <Box component="div" p={5}></Box>
+          <Card>
+            <CardHeader
+              action={
+                <FormGroup>
+                  <FormControlLabel
+                    control={
+                      <Switch checked={isDarkTheme} onChange={changeTheme} />
+                    }
+                    label="Dark Theme"
+                  />
+                </FormGroup>
+              }
+            />
+          </Card>
+        </div>
+      </Container>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;

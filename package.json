@@ -13,6 +13,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/joy": "^5.0.0-alpha.67",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.34.0",
     "cloudinary-react": "^1.8.1",
@@ -22,6 +24,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "joy-ui": "^0.0.3",
     "js-cookie": "^3.0.1",
     "json-web-token": "^3.2.0",
     "jsonwebtoken": "^9.0.0",

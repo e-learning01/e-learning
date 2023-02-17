@@ -20,6 +20,8 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Brightness2SharpIcon from "@mui/icons-material/Brightness2Sharp";
 import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
+import LibraryBooksSharpIcon from "@mui/icons-material/LibraryBooksSharp";
+import { Avatar } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -84,7 +86,7 @@ const SideBar = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ bgcolor: "primary" }} open={open}>
+      <AppBar position="fixed" sx={{ bgcolor: "darkviolet" }} open={open}>
         <Toolbar>
           <IconButton
             aria-label="open drawer"
@@ -112,6 +114,11 @@ const SideBar = () => {
         anchor="left"
         open={open}
       >
+        <Avatar
+          src="./src/assets/logo-brainlab.png"
+          sx={{ width: "300px", height: "300px", m: "-90px", p: "20px" }}
+        ></Avatar>
+
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
