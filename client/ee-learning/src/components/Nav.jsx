@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {Link} from 'react-router-dom';
+import CartContext from '../Context/Cart/CartContext';
 function Nav() {
+  const{cartItems,showHideCart}=useContext(CartContext)
   return (
    
  <nav>
@@ -18,7 +20,8 @@ function Nav() {
           </div>
         </li>
         <li><Link to="/TeachOnWhatever">TeachOnWhateve</Link></li>
-        <li><Link to="/Cart"><img src="https://cdn-icons-png.flaticon.com/512/60/60992.png" width="20" height="20"/></Link><span>0</span></li>
+        <li onClick={showHideCart} className="cartt"><img src="https://cdn-icons-png.flaticon.com/512/60/60992.png" width="20" height="20"/>
+        {cartItems.length>0 && <div className='item_count'><span>{cartItems.length}</span></div>}</li>
       </ul>
     </div>
   </nav>

@@ -11,6 +11,7 @@ function Home() {
   return (
   <div>
     <Nav/>
+   
     <Container bg={bg}>
       <Wrapper>
         <InnerWrapper>

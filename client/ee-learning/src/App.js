@@ -12,6 +12,8 @@ import TeachOnWhatever from './components/TeachOnWhatever.jsx';
 import ContactUs from "./components/ContactUs.jsx"
 import MyCourses from './components/MyCourses.jsx';
 
+
+
 function App() {
 
 
@@ -23,6 +25,7 @@ function App() {
   return (
     <div>
    <BrowserRouter>
+  
   <Routes>
     <Route exact path="/" element={<Home/>}></Route>
     <Route exact path="/about" element={<About/>}></Route>
@@ -43,6 +46,7 @@ function App() {
   </div>
   <p>&copy; 2023 Your Company. All rights reserved.</p>
 </footer>
+
 </BrowserRouter>
 
 
