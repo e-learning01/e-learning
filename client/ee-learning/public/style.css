@@ -1,0 +1,12 @@
+ul{  
+    border:solid 1px black;
+}
+
+li{  
+    border:solid 1px green;  
+    display:inline-block;
+}
+
+/* a{  
+    border:solid 1px red;
+} */
