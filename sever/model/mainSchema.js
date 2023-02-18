@@ -20,6 +20,7 @@ const User = sequelize.define("users", {
   role: { type: DataTypes.INTEGER, allowNull: false },
   speciality: { type: DataTypes.TEXT(45), allowNull: false },
 });
+
 module.exports = {
   findAll: async () => {
     try {

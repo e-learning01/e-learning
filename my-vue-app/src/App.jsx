@@ -14,7 +14,6 @@ import {
   FormControlLabel,
   CssBaseline,
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 // Define theme settings
 const light = {

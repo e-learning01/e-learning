@@ -15,9 +15,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <SideBar />
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Register />}></Route>
+        <Route path="/loginpage" element={<Login />}></Route>
         <Route path="/teacherProfile" element={<TeacherProfile />}></Route>
         <Route path="/studentprofile" element={<StudentProfile />}></Route>
-        <Route path="/" element={<Login />}></Route>
+        <Route path="/addcourse" element={<AddCourse />}></Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

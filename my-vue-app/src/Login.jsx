@@ -10,24 +10,31 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    axios.post('http://127.0.0.1:5173/api/users/signin', {
-      email: email,
-      password: password
-    }, {
-      withCredentials: true
-    }).then(e=>{ 
-      typeof e.data == "string"
-    ? Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: e.data,
+
+    axios
+      .post(
+        "http://127.0.0.1:5173/api/users/signin",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((e) => {
+        typeof e.data == "string"
+          ? Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: e.data,
+            })
+          : Cookies.set("AcessToken", e.data.token);
       })
-    : Cookies.set('AcessToken', e.data.token)})
-    .catch(error => {
-      console.log(error);
-    });
-  }
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="auth-form-container">
       <h2>Hello Again!</h2>

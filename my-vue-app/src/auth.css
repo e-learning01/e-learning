@@ -27,15 +27,13 @@
 
 ul {
   list-style-type: none;
-  height: 200px;
+ 
   display: flex;
   flex-direction: column;
 }
 
 
-ul > :last-child {
-  margin-top: 220%;
-}
+
 
 .lName {
   font-weight: bold;
@@ -117,7 +115,7 @@ label {
 
 input, select {
   margin: 0.5rem 0;
-  padding: 1rem;
+  
   border: none;
   border-radius: 10px;
 }
