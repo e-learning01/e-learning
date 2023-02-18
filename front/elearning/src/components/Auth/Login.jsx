@@ -5,7 +5,7 @@ import { redirect } from "react-router-dom";
 import Swal from "sweetalert2";
 import Cookies from "js-cookie";
 const Login = (props) => {
-  const [email, setEmail] = useState("");
+                                                                                                                                                                               const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
 
   const handleSubmit = (e) => {

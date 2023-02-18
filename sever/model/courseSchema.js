@@ -57,5 +57,15 @@ const Book = sequelize.define("Books",{
         console.log(err)
       }
   },
+  addBook : async (book) => {
+    try {
+      await Book.create(book)
+      return "created"
+    }
+    catch (e) {
+      console.log(e);
+      return e
+    }
+  }
 
  }
