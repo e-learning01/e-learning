@@ -19,7 +19,7 @@ const Register = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     ref.current.selectedIndex && setRole(ref.current.selectedIndex) 
-     axios.post("http://127.0.0.1:3000/api/users/signup", {
+     axios.post("http://127.0.0.1:5173/api/users/signup", {
         name,
         lastname,
         username,
@@ -30,7 +30,8 @@ const Register = (props) => {
         age,
         role,
         speciality,
-      }).then(msg=>alert(msg.data)).catch(err=>console.log(err)) 
+      }).then
+      (msg=>alert(msg.data)).catch(err=>console.log(err)) 
   };
   return (
     <div className="parent">
