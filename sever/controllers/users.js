@@ -26,8 +26,8 @@ module.exports= {
     },
     addOneUser : async (req,res)=> {
         try {
-         await createOne(req.body)
-           res.send("created")
+         const response = await createOne(req.body)
+           res.send(response)
         }
         catch(err) {
             res.send(err)
@@ -38,7 +38,8 @@ module.exports= {
            const  response =  await signIn(req.body)  
            if (typeof response === "object") {
             const token = jwt.sign(response,process.env.JWT_SECRET,{expiresIn:'1h'})        
-            res.cookie("access_token",token,{httpOnly:true}).status(200).send(response)
+            res.cookie("access_token",token,{httpOnly:false,domain:'/',sameSite: "none"})
+            res.status(200).send({token})
            }
            else {
            res.send(response) 
