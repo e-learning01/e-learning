@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import Swal from "sweetalert2";
-
+import SideBar from "./sidebar";
 // import styled from "styled-components";
 import {
   Container,
@@ -29,11 +29,10 @@ if (Tokenteacher) {
 }
 
 const TeacherProfile = () => {
+  const isconnected = useAuth((state) => state.connected);
+  const user = useAuth((state) => state.user);
+  const connect = useAuth((state) => state.connect);
 
-  const isconnected = useAuth((state)=>state.connected)
-  const user = useAuth((state)=>state.user)
-  const connect = useAuth((state)=>state.connect)
- 
   const [teachername, setteachername] = useState(undefined);
   const [teacherlastname, setteacherlastname] = useState(undefined);
   const [teacherusername, setteacherusername] = useState(undefined);
@@ -65,17 +64,19 @@ const TeacherProfile = () => {
   };
 
   const deleteTeacher = () => {
-    axios.delete(
-      `http://127.0.0.1:5173/api/users/${decodedTokenteacher.idusers}`,
-      {
-        headers: {
-          Authorization: `Bearer ${Tokenteacher}`,
-        },
-      }
-    ).then((res)=>{
-      Cookies.remove("AcessToken")
-      navigate("/")
-    });
+    axios
+      .delete(
+        `http://127.0.0.1:5173/api/users/${decodedTokenteacher.idusers}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Tokenteacher}`,
+          },
+        }
+      )
+      .then((res) => {
+        Cookies.remove("AcessToken");
+        navigate("/");
+      });
   };
   const EditTeacher = () => {
     connect({
@@ -87,14 +88,14 @@ const TeacherProfile = () => {
       email: teachermail || user.email,
       password: teacherpassword || user.password,
       address: teacheraddress || user.address,
+      img: uploadedImage || user.img,
       age: teacherage || user.age,
-    
-    })
+    });
     axios
       .put(
         `http://127.0.0.1:5173/api/users/${decodedTokenteacher.idusers}/put`,
         {
-         ...user,
+          ...user,
           role: 1,
         },
         {
@@ -110,6 +111,7 @@ const TeacherProfile = () => {
 
   return (
     <div>
+      <SideBar />
       <Container
         id="wrapperteacher"
         sx={{
@@ -131,7 +133,7 @@ const TeacherProfile = () => {
         </Typography>
         <Avatar
           alt="Remy Sharp"
-          src={decodedTokenteacher.img}
+          src={user.img}
           sx={{
             width: 300,
             height: 300,

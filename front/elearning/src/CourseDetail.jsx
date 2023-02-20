@@ -1,50 +1,119 @@
-import React, { useContext } from 'react'
-import CartContext from './Context/Cart/CartContext'
+import React, { useContext } from "react";
+import CartContext from "./Context/Cart/CartContext";
 
-
-
-
+import AspectRatio from "@mui/joy/AspectRatio";
+import Avatar from "@mui/joy/Avatar";
+import Box from "@mui/joy/Box";
+import Card from "@mui/joy/Card";
+import IconButton from "@mui/joy/IconButton";
+import Typography from "@mui/joy/Typography";
+import Link from "@mui/joy/Link";
+import FavoriteBorderRoundedIcon from "@mui/icons-material/FavoriteBorderRounded";
 
 function CourseDetail(props) {
+  const { addToCart } = useContext(CartContext);
 
- const {addToCart} =useContext(CartContext)
-
-const handleClick=()=>{
-  addToCart(props.e);
-  
-}
-
-
-
+  const handleClick = () => {
+    addToCart(props.e);
+  };
 
   return (
-    <div>
-   <div className="card">
-  <img src={props.e.imageUrl} className="card-img"/>
-  <div className="card-info">
-    <p className="text-title">{props.e.name}</p>
-    <p className="text-title">{props.e.duration}</p>
-    <p className="text-body">{props.e.description}</p>
-    <p className="text-body">{props.e.instructor}</p>
-    <p className="text-body">{props.e.categorie}</p>
-  </div>
-  <div className="card-footer">
-  <span className="text-title">{props.e.price}</span>
-<span className="text-currency">&nbsp;TND</span>
-  <div className="card-button">
-    <svg className="svg-icon" onClick={handleClick} >
-      <path d="M17.72,5.011H8.026c-0.271,0-0.49,0.219-0.49,0.489c0,0.271,0.219,0.489,0.49,0.489h8.962l-1.979,4.773H6.763L4.935,5.343C4.926,5.316,4.897,5.309,4.884,5.286c-0.011-0.024,0-0.051-0.017-0.074C4.833,5.166,4.025,4.081,2.33,3.908C2.068,3.883,1.822,4.075,1.795,4.344C1.767,4.612,1.962,4.853,2.231,4.88c1.143,0.118,1.703,0.738,1.808,0.866l1.91,5.661c0.066,0.199,0.252,0.333,0.463,0.333h8.924c0.116,0,0.22-0.053,0.308-0.128c0.027-0.023,0.042-0.048,0.063-0.076c0.026-0.034,0.063-0.058,0.08-0.099l2.384-5.75c0.062-0.151,0.046-0.323-0.045-0.458C18.036,5.092,17.883,5.011,17.72,5.011z"></path> 
-     <path d="M8.251,12.386c-1.023,0-1.856,0.834-1.856,1.856s0.833,1.853,1.856,1.853c1.021,0,1.853-0.83,1.853-1.853S9.273,12.386,8.251,12.386z M8.251,15.116c-0.484,0-0.877-0.393-0.877-0.874c0-0.484,0.394-0.878,0.877-0.878c0.482,0,0.875,0.394,0.875,0.878C9.126,14.724,8.733,15.116,8.251,15.116z"></path>
-      <path d="M13.972,12.386c-1.022,0-1.855,0.834-1.855,1.856s0.833,1.853,1.855,1.853s1.854-0.83,1.854-1.853S14.994,12.386,13.972,12.386z M13.972,15.116c-0.484,0-0.878-0.393-0.878-0.874c0-0.484,0.394-0.878,0.878-0.878c0.482,0,0.875,0.394,0.875,0.878C14.847,14.724,14.454,15.116,13.972,15.116z"></path>
-    </svg>
-  </div>
-</div></div>
-
-
-
-
-    </div>
-  )
+    <Box sx={{ minHeight: 350 }}>
+      <Card
+        variant="outlined"
+        sx={(theme) => ({
+          width: 300,
+          gridColumn: "span 2",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          resize: "horizontal",
+          overflow: "hidden",
+          gap: "clamp(0px, (100% - 360px + 32px) * 999, 16px)",
+          transition: "transform 0.3s, border 0.3s",
+          "&:hover": {
+            borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+            transform: "translateY(-2px)",
+          },
+          "& > *": { minWidth: "clamp(0px, (360px - 100%) * 999,100%)" },
+        })}
+      >
+        <AspectRatio
+          variant="soft"
+          sx={{
+            flexGrow: 1,
+            display: "contents",
+            "--AspectRatio-paddingBottom":
+              "clamp(0px, (100% - 360px) * 999, min(calc(100% / (16 / 9)), 300px))",
+          }}
+        >
+          <img
+            src="https://images.unsplash.com/photo-1492305175278-3b3afaa2f31f?auto=format&fit=crop&w=2000"
+            loading="lazy"
+            alt=""
+          />
+        </AspectRatio>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            maxWidth: 200,
+          }}
+        >
+          <Box sx={{ display: "flex" }}>
+            <div>
+              <Typography level="h2" sx={{ fontSize: "md" }} mb={0.5}>
+                <Link
+                  href="#container-responsive"
+                  overlay
+                  underline="none"
+                  sx={{
+                    color: "text.primary",
+                    "&.Mui-focusVisible:after": { outlineOffset: "-4px" },
+                  }}
+                >
+                  Yosemite National Park
+                </Link>
+              </Typography>
+              <Typography level="body2">California, USA</Typography>
+            </div>
+            <IconButton
+              size="sm"
+              variant="plain"
+              color="neutral"
+              sx={{ ml: "auto", alignSelf: "flex-start" }}
+            >
+              <FavoriteBorderRoundedIcon color="danger" />
+            </IconButton>
+          </Box>
+          <AspectRatio
+            variant="soft"
+            sx={{
+              "--AspectRatio-paddingBottom":
+                "clamp(0px, (100% - 200px) * 999, 200px)",
+              pointerEvents: "none",
+            }}
+          >
+            <img
+              alt=""
+              src="https://images.unsplash.com/photo-1492305175278-3b3afaa2f31f?auto=format&fit=crop&w=2262"
+            />
+          </AspectRatio>
+          <Box sx={{ display: "flex", gap: 1.5, mt: "auto" }}>
+            <Avatar variant="soft" color="neutral">
+              Y
+            </Avatar>
+            <div>
+              <Typography level="body2">Designed by</Typography>
+              <Typography fontWeight="lg" level="body2">
+                Nature itself
+              </Typography>
+            </div>
+          </Box>
+        </Box>
+      </Card>
+    </Box>
+  );
 }
 
-export default CourseDetail
+export default CourseDetail;

@@ -25,31 +25,32 @@ import jwt_decode from "jwt-decode";
 import "@fontsource/roboto";
 import { useState } from "react";
 import { useAuth } from "./Auth";
+import SideBar from "./sidebar.jsx";
 
 const StudentProfile = () => {
-  const [studentname, setstudentname] = useState(undefined ); // decodedToken.name
-  const [studentlastname, setstudentlastname] = useState(undefined ); // decodedToken.lastname
-  const [studentusername, setstudentusername] = useState(undefined ); // decodedToken.userame
-  const [studentmail, setstudentmail] = useState(undefined ); // decodedToken.email
-  const [studentpassword, setstudentpassword] = useState(undefined ); // decodedToken.password
-  const [studentaddress, setstudentaddress] = useState(undefined ); // decodedToken.address
-  const [studentage, setstudentage] = useState(undefined ); // decodedToken.age
+  const [studentname, setstudentname] = useState(undefined); // decodedToken.name
+  const [studentlastname, setstudentlastname] = useState(undefined); // decodedToken.lastname
+  const [studentusername, setstudentusername] = useState(undefined); // decodedToken.userame
+  const [studentmail, setstudentmail] = useState(undefined); // decodedToken.email
+  const [studentpassword, setstudentpassword] = useState(undefined); // decodedToken.password
+  const [studentaddress, setstudentaddress] = useState(undefined); // decodedToken.address
+  const [studentage, setstudentage] = useState(undefined); // decodedToken.age
 
   const [picChosen, setpicChosen] = useState({});
   const [uploadedImg, setuploadedImg] = useState("");
   const [isDarkTheme, setIsDarkTheme] = useState(false);
-const isconnected = useAuth((state)=>state.connected)
- const user = useAuth((state)=>state.user)
- const connect = useAuth((state)=>state.connect)
- const cookie = Cookies.get("AcessToken")
- const decodedToken= jwt_decode(cookie);
+  const isconnected = useAuth((state) => state.connected);
+  const user = useAuth((state) => state.user);
+  const connect = useAuth((state) => state.connect);
+  const cookie = Cookies.get("AcessToken");
+  const decodedToken = jwt_decode(cookie);
 
   const changeTheme = () => {
     setIsDarkTheme(!isDarkTheme);
   };
-  useEffect(()=>{
-    (!isconnected) && navigate("/")
-  },[])
+  useEffect(() => {
+    !isconnected && navigate("/");
+  }, []);
 
   const uploadPic = () => {
     const picd = new FormData();
@@ -70,29 +71,34 @@ const isconnected = useAuth((state)=>state.connected)
     navigate(teacherprofile);
   };
   const deleteStudent = () => {
-    axios.delete(`http://127.0.0.1:5173/api/users/${decodedToken.idusers}`, {
-      headers: {
-        Authorization: `Bearer ${Token}`,
-      },
-    }).then((res)=>{
-      Cookies.remove("AcessToken")
-      navigate("/")
-    });;
+    axios
+      .delete(`http://127.0.0.1:5173/api/users/${decodedToken.idusers}`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
+      .then((res) => {
+        Cookies.remove("AcessToken");
+        navigate("/");
+      });
   };
   const EditStudent = () => {
-    connect({name : studentname || user.name  ,
-      lastname :studentlastname || user.lastname ,
-      username : studentusername || user.username ,
-      email : studentmail || user.email ,
-      password : user.password ,
-      address : studentaddress || user.address ,
-      age: studentage || user.age,})
+    connect({
+      name: studentname || user.name,
+      lastname: studentlastname || user.lastname,
+      username: studentusername || user.username,
+      email: studentmail || user.email,
+      password: studentpassword || user.password,
+      address: studentaddress || user.address,
+      img: uploadedImg || user.img,
+      age: studentage || user.age,
+    });
     axios
       .put(
         `http://127.0.0.1:5173/api/users/${decodedToken.idusers}/put`,
 
         {
-         ...user,
+          ...user,
           role: 0,
         },
         {
@@ -102,12 +108,13 @@ const isconnected = useAuth((state)=>state.connected)
         }
       )
       .then((res) => {
-       console.log(res.data)
+        console.log(res.data);
       });
   };
 
   return (
     <div>
+      <SideBar />
       <Container
         id="wrapperstudent"
         sx={{
@@ -129,7 +136,7 @@ const isconnected = useAuth((state)=>state.connected)
         </Typography>
         <Avatar
           alt="Remy Sharp"
-          src={decodedToken.img}
+          src={user.img}
           sx={{
             width: 300,
             height: 300,
@@ -192,7 +199,6 @@ const isconnected = useAuth((state)=>state.connected)
               Name
             </Typography>
             <TextField
-              defaultValue={decodedToken.name}
               onChange={(e) => {
                 setstudentname(e.target.value);
               }}
@@ -206,7 +212,6 @@ const isconnected = useAuth((state)=>state.connected)
               Last Name
             </Typography>
             <TextField
-              defaultValue={decodedToken.lastname}
               onChange={(e) => {
                 setstudentlastname(e.target.value);
               }}
@@ -220,7 +225,6 @@ const isconnected = useAuth((state)=>state.connected)
               User Name
             </Typography>
             <TextField
-              defaultValue={decodedToken.username}
               onChange={(e) => {
                 setstudentusername(e.target.value);
               }}
@@ -235,7 +239,6 @@ const isconnected = useAuth((state)=>state.connected)
               E-mail
             </Typography>
             <TextField
-              defaultValue={decodedToken.email}
               onChange={(e) => {
                 setstudentmail(e.target.value);
               }}
@@ -250,11 +253,11 @@ const isconnected = useAuth((state)=>state.connected)
               Password
             </Typography>
             <TextField
-              defaultValue={decodedToken.password}
               onChange={(e) => {
                 setstudentpassword(e.target.value);
               }}
               id="inputpasswordstudent"
+              defaultValue={studentpassword}
               label="******"
               variant="standard"
               type="password"
@@ -265,7 +268,6 @@ const isconnected = useAuth((state)=>state.connected)
               Address
             </Typography>
             <TextField
-              defaultValue={decodedToken.address}
               onChange={(e) => {
                 setstudentaddress(e.target.value);
               }}
@@ -280,7 +282,6 @@ const isconnected = useAuth((state)=>state.connected)
               Age
             </Typography>
             <TextField
-              defaultValue={decodedToken.age}
               onChange={(e) => {
                 setstudentage(e.target.value);
               }}

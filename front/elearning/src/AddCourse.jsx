@@ -219,10 +219,10 @@ const AddCourse = () => {
               onClick={() => {
                 Swal.fire({
                   titleText: coursename,
-                  text: { coursedescription },
+                  text: coursedescription,
 
-                  imageUrl: { courseimage },
-                  footer: { courseprice },
+                  imageUrl: courseimage,
+                  footer: courseprice,
                   imageWidth: 400,
                   imageHeight: 200,
                   imageAlt: "Custom image",

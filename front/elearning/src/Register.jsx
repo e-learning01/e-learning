@@ -6,11 +6,13 @@ import Nav from "./Nav.jsx";
 import Swal from "sweetalert2";
 import { useAuth } from "./Auth";
 const Register = (props) => {
-  const isconnected = useAuth((state) => state.connected)
-  const navigate = useNavigate()
-  useEffect (()=> {
-    if (isconnected) {return navigate("/") }}
-,[])
+  const isconnected = useAuth((state) => state.connected);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isconnected) {
+      return navigate("/");
+    }
+  }, []);
   const [email, setEmail] = useState("");
   const [password, setPass] = useState("");
   const [conPass, setConPass] = useState("");
@@ -26,7 +28,7 @@ const Register = (props) => {
   const [role, setRole] = useState(0);
   const [errorMessage, setErrorMessage] = useState("");
   const ref = useRef();
- 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     ref.current.selectedIndex && setRole(ref.current.selectedIndex);
@@ -43,118 +45,122 @@ const Register = (props) => {
         role,
         speciality,
       })
-      .then((msg) => msg.data == "user created" ? navigate("/login")
-      : Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: msg.data,
-      }))
+      .then((msg) =>
+        msg.data == "user created"
+          ? navigate("/login")
+          : Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: msg.data,
+            })
+      )
       .catch((err) => console.log(err));
   };
   return (
-    <><Nav/>
-    <div className="whole">
-    <div className="parent">
-      <div className="neighboring-banner">
-        <ul>
-          <li className="lName">Brainlab</li>
-          <li className="headline">Keep Learning.</li>
-          <li className="subline">Your best bet for e-learning</li>
-          <h5 className="footer">RBK™</h5>
-        </ul>
-      </div>
-      <div className="auth-form-container">
-        <h2>CREATE A NEW ACCOUNT</h2>
-        <form className="register-form" onSubmit={(e) => handleSubmit(e)}>
-          <label htmlFor="name">First name:</label>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            id="name"
-            placeholder="eg: Tyler"
-          />
-          <label htmlFor="lastname">Last name:</label>
-          <input
-            value={lastname}
-            onChange={(e) => setLastName(e.target.value)}
-            id="lastname"
-            placeholder="eg: Hoover"
-          />
-          <label htmlFor="username">Username:</label>
-          <input
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            id="username"
-            placeholder="eg: Hoovie91"
-          />
-          <label htmlFor="email">E-Mail:</label>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="eg: Youremail@gmail.com"
-            id="email"
-          />
-          <label htmlFor="password">Password:</label>
-          <input
-            value={password}
-            onChange={(e) => setPass(e.target.value)}
-            type="password"
-            placeholder="Between 8 - 20 use caps and nums"
-            id="password"
-          />
-          <label htmlFor="password">Confirm password:</label>
-          <input
-            value={conPass}
-            onChange={(e) => setConPass(e.target.value)}
-            type="password"
-            placeholder="Confirm your password"
-            id="password"
-          />
-          <label htmlFor="address">Address:</label>
-          <input
-            value={address}
-            onChange={(e) => setAdress(e.target.value)}
-            type="text"
-            placeholder="eg:  Wichita Kansas, 1234NW Salt Lake"
-            id="address"
-          />
-          <label htmlFor="age">Age:</label>
-          <input
-            onChange={(e) => setAge(e.target.value)}
-            placeholder="Between 15 - 65 "
-            id="age"
-          />
-          <label htmlFor="role">Choose a role:</label>
-          <select
-            ref={ref}
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            id="roles"
-          >
-            <option value="Student">Student</option>
-            <option value="Teacher">Teacher</option>
-          </select>
-          {ref.current?.selectedIndex && (
-            <>
-              <label htmlFor="speciality">Speciality:</label>
+    <>
+      <Nav />
+      <div className="whole">
+        <div className="parent">
+          <div id="neighboring-banner">
+            <ul>
+              <li className="lName">Brainlab</li>
+              <li className="headline">Keep Learning.</li>
+              <li className="subline">Your best bet for e-learning</li>
+              <h5 className="footer">RBK™</h5>
+            </ul>
+          </div>
+          <div className="auth-form-container">
+            <h2>CREATE A NEW ACCOUNT</h2>
+            <form className="register-form" onSubmit={(e) => handleSubmit(e)}>
+              <label htmlFor="name">First name:</label>
               <input
-                value={speciality}
-                onChange={(e) => setSepciality(e.target.value)}
-                id="speciality"
-                placeholder="eg: physics, science"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                id="name"
+                placeholder="eg: Tyler"
               />
-            </>
-          )}
-          <button type="submit">Register</button>
-          {errorMessage && <p>{errorMessage}</p>}
-        </form>
-        <button className="link-btn" onClick={() => navigate("/loginpage")}>
-          Already have an account? Login here!
-        </button>
+              <label htmlFor="lastname">Last name:</label>
+              <input
+                value={lastname}
+                onChange={(e) => setLastName(e.target.value)}
+                id="lastname"
+                placeholder="eg: Hoover"
+              />
+              <label htmlFor="username">Username:</label>
+              <input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                id="username"
+                placeholder="eg: Hoovie91"
+              />
+              <label htmlFor="email">E-Mail:</label>
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                type="email"
+                placeholder="eg: Youremail@gmail.com"
+                id="email"
+              />
+              <label htmlFor="password">Password:</label>
+              <input
+                value={password}
+                onChange={(e) => setPass(e.target.value)}
+                type="password"
+                placeholder="Between 8 - 20 use caps and nums"
+                id="password"
+              />
+              <label htmlFor="password">Confirm password:</label>
+              <input
+                value={conPass}
+                onChange={(e) => setConPass(e.target.value)}
+                type="password"
+                placeholder="Confirm your password"
+                id="password"
+              />
+              <label htmlFor="address">Address:</label>
+              <input
+                value={address}
+                onChange={(e) => setAdress(e.target.value)}
+                type="text"
+                placeholder="eg:  Wichita Kansas, 1234NW Salt Lake"
+                id="address"
+              />
+              <label htmlFor="age">Age:</label>
+              <input
+                onChange={(e) => setAge(e.target.value)}
+                placeholder="Between 15 - 65 "
+                id="age"
+              />
+              <label htmlFor="role">Choose a role:</label>
+              <select
+                ref={ref}
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+                id="roles"
+              >
+                <option value="Student">Student</option>
+                <option value="Teacher">Teacher</option>
+              </select>
+              {ref.current?.selectedIndex && (
+                <>
+                  <label htmlFor="speciality">Speciality:</label>
+                  <input
+                    value={speciality}
+                    onChange={(e) => setSepciality(e.target.value)}
+                    id="speciality"
+                    placeholder="eg: physics, science"
+                  />
+                </>
+              )}
+              <button type="submit">Register</button>
+              {errorMessage && <p>{errorMessage}</p>}
+            </form>
+            <button className="link-btn" onClick={() => navigate("/loginpage")}>
+              Already have an account? Login here!
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
-    </div>
     </>
   );
 };

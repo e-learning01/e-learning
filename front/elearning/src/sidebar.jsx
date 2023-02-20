@@ -22,6 +22,7 @@ import Brightness2SharpIcon from "@mui/icons-material/Brightness2Sharp";
 import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
 import LibraryBooksSharpIcon from "@mui/icons-material/LibraryBooksSharp";
 import { Avatar } from "@mui/material";
+import { useAuth } from "./Auth";
 
 const drawerWidth = 240;
 
@@ -72,6 +73,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const SideBar = () => {
+  const user = useAuth((state) => state.user);
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -86,16 +88,15 @@ const SideBar = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ bgcolor: "darkviolet" }} open={open}>
+      <AppBar position="fixed" sx={{ bgcolor: "black" }} open={open}>
         <Toolbar>
-          <IconButton
+          <Avatar
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
+            src={user.img}
+          ></Avatar>
           <Typography variant="h6" noWrap component="div">
             More Here
           </Typography>
@@ -114,11 +115,6 @@ const SideBar = () => {
         anchor="left"
         open={open}
       >
-        <Avatar
-          src="./src/assets/logo-brainlab.png"
-          sx={{ width: "300px", height: "300px", m: "-90px", p: "20px" }}
-        ></Avatar>
-
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (

@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`categories` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
+DELETE FROM `e-learning`.`users` WHERE (`idusers` = '15');
+DELETE FROM `e-learning`.`users` WHERE (`idusers` = '16');
 
 -- -----------------------------------------------------
 -- Table `e-learning`.`users`
