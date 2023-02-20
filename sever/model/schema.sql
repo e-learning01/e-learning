@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`categories` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
+DELETE FROM `e-learning`.`users` WHERE (`idusers` = '15');
+DELETE FROM `e-learning`.`users` WHERE (`idusers` = '16');
 
 -- -----------------------------------------------------
 -- Table `e-learning`.`users`
@@ -55,7 +56,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `e-learning`.`courses`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `e-learning`.`courses` (
-  `idcourses` INT NOT NULL AUTO_INCREMENT,
+  `idcourses` INT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `price` FLOAT NOT NULL,
   `description` VARCHAR(45) NOT NULL,
@@ -63,9 +64,6 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`courses` (
   `language` VARCHAR(45) NOT NULL,
   `instructor` INT NOT NULL,
   `cat` INT NOT NULL,
-  `thumbnail` VARCHAR(45) NOT NULL,
-  `gains` VARCHAR(450) NOT NULL,
-  `video` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idcourses`),
   INDEX `kaf_idx` (`instructor` ASC) VISIBLE,
   INDEX `categ_idx` (`cat` ASC) VISIBLE,
@@ -76,7 +74,6 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`courses` (
     FOREIGN KEY (`instructor`)
     REFERENCES `e-learning`.`users` (`idusers`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 

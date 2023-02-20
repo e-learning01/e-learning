@@ -55,7 +55,9 @@ module.exports= {
         else {
             try {
           const user = await UpdateUser(req.body,req.user.idusers) 
-          res.send(user)  
+          const RefreshToken = jwt.sign(user,process.env.JWT_SECRET,{expiresIn:'1h'})        
+          res.cookie("access_token",RefreshToken,{httpOnly:false,domain:'/'})
+          res.status(200).send({token})
         
             }
             catch(err) {

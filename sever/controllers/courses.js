@@ -1,4 +1,4 @@
-const  {findAll,findOne,createOne} = require("../model/CourseSchema")
+const  {findAll,findOne,addBook} = require("../model/CourseSchema")
 const jwt = require("jsonwebtoken")
 const dotenv = require("dotenv")
 dotenv.config()
@@ -24,8 +24,8 @@ module.exports= {
     ,
     addOneBook : async (req,res)=> {
         try {
-         await createOne(req.body)
-           res.send("created")
+       const res =  await addBook(req.body)
+           res.send(res)
         }
         catch(err) {
             res.send(err)

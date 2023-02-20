@@ -4,7 +4,6 @@ const {DelteUser,HandleFindUser,checkUser,HandleOneUser,addOneUser,HandleUpdateU
 const authCheck = require("../../middleware/authCheck")
 
 router.get('/',authCheck,HandleFindUser)
-
 router.get("/:id",authCheck,HandleOneUser)
 router.post("/signup",addOneUser)
 router.post("/signin",checkUser)
