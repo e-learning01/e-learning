@@ -69,30 +69,50 @@ const TeacherProfile = () => {
     );
   };
   const EditTeacher = () => {
-    axios
-      .put(
-        `http://127.0.0.1:5173/api/users/${decodedTokenteacher.idusers}/put`,
-        {
-          name: teachername,
-          img: uploadedImage,
-          lastname: teacherlastname,
-          username: teacherusername,
-          specialty: teacherspeciality,
-          email: teachermail,
-          password: teacherpassword,
-          address: teacheraddress,
-          age: teacherage,
-          role: 1,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${Tokenteacher}`,
+    if (teachername === "") {
+      setteachername(teachername);
+    } else if (teacherlastname === "") {
+      setteacherlastname(teacherlastname);
+    } else if (teacherusername === "") {
+      setteacherusername(teacherusername);
+    } else if (teacherspeciality === "") {
+      setteacherspecialty(teacherspeciality);
+    } else if (teachermail === "") {
+      setteachermail(teachermail);
+    } else if (teacherpassword === "") {
+      setteacherpassword(teacherpassword);
+    } else if (teacheraddress === "") {
+      setteacheraddress(teacheraddress);
+    } else if (teacherage === "") {
+      setteacherage(teacherage);
+    } else if (uploadedImage === "") {
+      setuploadedImage(uploadedImage);
+    } else {
+      axios
+        .put(
+          `http://127.0.0.1:5173/api/users/${decodedTokenteacher.idusers}/put`,
+          {
+            name: teachername,
+            img: uploadedImage,
+            lastname: teacherlastname,
+            username: teacherusername,
+            specialty: teacherspeciality,
+            email: teachermail,
+            password: teacherpassword,
+            address: teacheraddress,
+            age: teacherage,
+            role: 1,
           },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-      });
+          {
+            headers: {
+              Authorization: `Bearer ${Tokenteacher}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+        });
+    }
   };
 
   return (

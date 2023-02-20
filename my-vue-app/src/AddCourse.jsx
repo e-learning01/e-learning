@@ -29,10 +29,25 @@ const AddCourse = () => {
   const [studentgains, setstudentgains] = useState("");
   const [coursevideo, setcoursevideo] = useState("");
   const [coursecategorie, setcoursecategorie] = useState("");
+  const [picChosena, setpicChosena] = useState("");
 
   var Token = Cookies.get("AcessToken");
 
   const decodedToken = jwt_decode(Token) || "";
+
+  const uploadPic = () => {
+    const pica = new FormData();
+    pica.append("file", picChosena);
+    pica.append("upload_preset", "maboz3uf");
+
+    axios
+      .post("https://api.cloudinary.com/v1_1/du5ydewvs/image/upload", pica)
+      .then((res) => {
+        console.log(res.data);
+        const uploadedImga = res.data.secure_url;
+        setpicChosena(uploadedImga);
+      });
+  };
 
   const Addcour = (post) => {
     axios
@@ -52,8 +67,9 @@ const AddCourse = () => {
         console.log(res);
       });
   };
+
   return (
-    <div>
+    <Paper>
       <Container
         id="wrappercourse"
         sx={{
@@ -152,7 +168,8 @@ const AddCourse = () => {
             </Typography>
             <TextField
               onChange={(e) => {
-                setcourseimage(e.target.value);
+                console.log(e.target.files[0]);
+                setcourseimage(e.target.files[0]);
               }}
               id="inputimgcourse"
               label="Thumbnail link "
@@ -219,10 +236,10 @@ const AddCourse = () => {
               onClick={() => {
                 Swal.fire({
                   titleText: coursename,
-                  text: { coursedescription },
+                  text: coursedescription,
 
-                  imageUrl: { courseimage },
-                  footer: { courseprice },
+                  imageUrl: courseimage,
+                  footer: courseprice,
                   imageWidth: 400,
                   imageHeight: 200,
                   imageAlt: "Custom image",
@@ -329,7 +346,7 @@ const AddCourse = () => {
           </Box>
         </Container>
       </Paper>
-    </div>
+    </Paper>
   );
 };
 export default AddCourse;

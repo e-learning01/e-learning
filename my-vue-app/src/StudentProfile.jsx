@@ -3,6 +3,7 @@ import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import Swal from "sweetalert2";
+import $ from "jquery";
 import {
   Container,
   TextField,
@@ -36,8 +37,110 @@ const StudentProfile = () => {
 
   const [picChosen, setpicChosen] = useState({});
   const [uploadedImg, setuploadedImg] = useState("");
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
   const [decodedToken, setdecodedToken] = useState({});
+
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("html").css({
+        "background-color": "black",
+        color: "white",
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("header").css({
+        "background-color": "lightgrey",
+        color: "black",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("a").css({
+        color: "black",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("h1").css({
+        color: "black",
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("#building").css({
+        color: "black",
+        "background-color": "#b4b4b4",
+
+        border: "solid grey",
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#light").hide(function () {});
+  });
+
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $("html").css({
+        "background-color": "white",
+        color: "black",
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $("header").css({
+        "background-color": "black",
+        color: "white",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $("a").css({
+        color: "#f70776",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $("h1").css({
+        color: "#f70776",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $(this).css({
+        color: "black",
+        "background-color": "black",
+        color: "transparent",
+        border: "solid #f70776",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("#light").show(2000);
+      $("#dark").hide(2000);
+    });
+  });
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $(this).hide(function () {
+        $("#dark").show(function () {});
+      });
+    });
+  });
 
   var Token = Cookies.get("AcessToken");
   useEffect(() => {
@@ -45,9 +148,6 @@ const StudentProfile = () => {
       setdecodedToken(jwt_decode(Token) || "");
     }
   }, []);
-  const changeTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-  };
 
   const uploadPic = () => {
     const picd = new FormData();
@@ -74,7 +174,25 @@ const StudentProfile = () => {
       },
     });
   };
+
   const EditStudent = () => {
+    // if (studentname === "") {
+    //   setstudentname(studentname);
+    // } else if (studentlastname === "") {
+    //   setstudentlastname(studentlastname);
+    // } else if (studentusername === "") {
+    //   setstudentusername(studentusername);
+    // } else if (studentmail === "") {
+    //   setstudentmail(studentmail);
+    // } else if (studentpassword === "") {
+    //   setstudentpassword(studentpassword);
+    // } else if (studentaddress === "") {
+    //   setstudentaddress(studentaddress);
+    // } else if (studentage === "") {
+    //   setstudentage(studentage);
+    // } else if (uploadedImg === "") {
+    //   setuploadedImg(uploadedImg);
+    // }
     axios
       .put(
         `http://127.0.0.1:5173/api/users/${decodedToken.idusers}/put`,
@@ -102,9 +220,10 @@ const StudentProfile = () => {
         Token = res.data;
       });
   };
-
   return (
     <div>
+      <button id="dark">Dark Mode</button>
+      <button id="light">Light Mode</button>
       <Container
         id="wrapperstudent"
         sx={{
@@ -179,7 +298,7 @@ const StudentProfile = () => {
               sx={{ fontFamily: " 'Raleway', sans-serif" }}
               variant="overline"
             >
-              Update{" "}
+              Update
             </Typography>
           </Button>
         </Grid>
@@ -194,6 +313,7 @@ const StudentProfile = () => {
               }}
               id="inputnamestudent  "
               label={decodedToken.name}
+              value={studentname}
               variant="standard"
             ></TextField>
           </Grid>
@@ -207,6 +327,7 @@ const StudentProfile = () => {
               }}
               id="inputlastnameteacher"
               label={decodedToken.lastname}
+              defaultValue={studentlastname}
               variant="standard"
             ></TextField>
           </Grid>
@@ -217,9 +338,11 @@ const StudentProfile = () => {
             <TextField
               onChange={(e) => {
                 setstudentusername(e.target.value);
+                console.log(studentusername);
               }}
               id="inputusernamestudent"
               label={decodedToken.username}
+              defaultValue={studentusername}
               variant="standard"
             ></TextField>
           </Grid>
@@ -234,6 +357,7 @@ const StudentProfile = () => {
               }}
               id="inputmailstudent"
               label={decodedToken.email}
+              defaultValue={studentmail}
               variant="standard"
               type="email"
             ></TextField>
@@ -248,6 +372,7 @@ const StudentProfile = () => {
               }}
               id="inputpasswordstudent"
               label="******"
+              defaultValue={studentpassword}
               variant="standard"
               type="password"
             ></TextField>
@@ -262,6 +387,7 @@ const StudentProfile = () => {
               }}
               id="inputaddressstudent"
               label={decodedToken.address}
+              defaultValue={studentaddress}
               variant="standard"
             ></TextField>
           </Grid>
@@ -272,10 +398,12 @@ const StudentProfile = () => {
             </Typography>
             <TextField
               onChange={(e) => {
+                console.log(e.target.value);
                 setstudentage(e.target.value);
               }}
               id="inputagestudent"
               label={decodedToken.age}
+              defaultValue={studentage}
               variant="standard"
               type="number"
               inputProps={{ min: "15", max: "90", step: "1" }}

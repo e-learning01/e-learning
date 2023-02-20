@@ -1,22 +1,18 @@
 -- MySQL Workbench Forward Engineering
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
-
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
 -- -----------------------------------------------------
 -- Schema e-learning
 -- -----------------------------------------------------
-
 -- -----------------------------------------------------
 -- Schema e-learning
 -- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `e-learning` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `e-learning` ;
-
 -- -----------------------------------------------------
 -- Table `e-learning`.`categories`
 -- -----------------------------------------------------
@@ -25,10 +21,9 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`categories` (
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idcategories`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `e-learning`.`users`
 -- -----------------------------------------------------
@@ -48,11 +43,9 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`users` (
   UNIQUE INDEX `username` (`username` ASC) VISIBLE,
   UNIQUE INDEX `email` (`email` ASC) VISIBLE)
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 12
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
 -- Table `e-learning`.`courses`
 -- -----------------------------------------------------
@@ -78,14 +71,13 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`courses` (
     FOREIGN KEY (`instructor`)
     REFERENCES `e-learning`.`users` (`idusers`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
-
 -- -----------------------------------------------------
--- Table `e-learning`.`learn`
+-- Table `e-learning`.`learns`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `e-learning`.`learn` (
+CREATE TABLE IF NOT EXISTS `e-learning`.`learns` (
   `iduser` INT NOT NULL,
   `idcourse` INT NOT NULL,
   PRIMARY KEY (`iduser`, `idcourse`),
@@ -99,10 +91,6 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`learn` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-UPDATE `e-learning`.`categories` SET `name` = 'Math' WHERE (`idcategories` = '1');
-INSERT INTO `e-learning`.`categories` (`idcategories`, `name`) VALUES ('2', 'Science');
-INSERT INTO `e-learning`.`categories` (`idcategories`, `name`) VALUES ('3 ', 'Development');
-
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
