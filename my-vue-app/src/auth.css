@@ -1,48 +1,72 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.whole {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  min-height: 81vh;
+  margin-top: 100px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-image: linear-gradient(79deg, #ebc0fd, #C66FBC 48%, #F7944D);
+  transition: all 2s ease-in-out ;
+}
 
 .parent {
   display: flex;
   transition: all 0.4s ease-in-out;
-  background-image: linear-gradient(79deg, #ebc0fd, #C66FBC 48%, #F7944D);
-
 }
-.auth-form-container{
-  background-image: linear-gradient(79deg, #ebc0fd, #C66FBC 48%, #F7944D);
 
-}
 
 .neighboring-banner {
   display: flex;
   min-height: 100vh;
-  text-align: left;
+  text-align: center;
   justify-content: center;
   padding: 9rem;
   border: 1px solid white;
   border-radius: 10px;
   margin: 0.5rem;
-  background-image: -webkit-linear-gradient(79deg, #30d0d04f, #3308674b);
+  background-image: linear-gradient(79deg, #30d0d04f, #3308674b);
   inline-size: 150px;
   overflow-wrap: break-word;
   transition: all 0.4s ease-in-out;
+  width: 30%
 }
 
 ul {
   list-style-type: none;
- 
+  height: 200px;
   display: flex;
   flex-direction: column;
 }
 
 
-
+ul > :last-child {
+  margin-top: 220%;
+}
 
 .lName {
   font-weight: bold;
-  font-size: 106px;
+  font-size: 20px;
   letter-spacing: -0.05em;
-  line-height: 95px;
+  line-height: 50px;
   color: #00000080;
-  width: 100%;
-  float:left;
+  width: 50%;
+  text-align: center;
   height: 80px;
 }
 
@@ -50,7 +74,7 @@ ul {
   margin-top: 5%;
   font-family: gt-super, Georgia, Cambria, "Times New Roman", Times, serif;
   font-feature-settings: 'pnum' on, 'lnum' on;
-  font-size: 90px;
+  font-size: 10px;
   letter-spacing: -0.05em;
   line-height: 95px;
   color: #000;
@@ -115,7 +139,7 @@ label {
 
 input, select {
   margin: 0.5rem 0;
-  
+  padding: 1rem;
   border: none;
   border-radius: 10px;
 }

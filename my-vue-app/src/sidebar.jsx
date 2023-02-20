@@ -86,7 +86,7 @@ const SideBar = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ bgcolor: "darkviolet" }} open={open}>
+      <AppBar position="fixed" sx={{ bgcolor: "black" }} open={open}>
         <Toolbar>
           <IconButton
             aria-label="open drawer"

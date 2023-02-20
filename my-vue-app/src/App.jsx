@@ -1,66 +1,46 @@
-import { useState } from "react";
+import React from "react";
+import Home from "./Home.jsx";
+import About from "./about/About.jsx";
+import Login from "./Login.jsx";
+import Register from "./Register.jsx";
+import Cart from "./Cart.jsx";
+import AllCourses from "./AllCourses.jsx";
+import { BrowserRouter, Routes } from "react-router-dom/dist/index.js";
+import { Link, Route } from "react-router-dom";
+import "./auth.css";
+import TeachOnWhatever from "./TeachOnWhatever.jsx";
+import ContactUs from "./ContactUs.jsx";
+import MyCourses from "./MyCourses.jsx";
+import StudentProfile from "./StudentProfile.jsx";
+import TeacherProfile from "./TeacherProfile.jsx";
 
-// Import MUI stuff
-import "@fontsource/roboto"; // Loading Roboto font. MUI was designed with this font in mind.
-import {
-  Card,
-  CardHeader,
-  Switch,
-  CardContent,
-  Box,
-  Container,
-  Typography,
-  FormGroup,
-  FormControlLabel,
-  CssBaseline,
-} from "@mui/material";
-
-// Define theme settings
-const light = {
-  palette: {
-    mode: "light",
-  },
-};
-
-const dark = {
-  palette: {
-    mode: "dark",
-  },
-};
-
-const App = () => {
-  // The light theme is used by default
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
-
-  // This function is triggered when the Switch component is toggled
-  const changeTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-  };
-
+function App() {
   return (
-    <ThemeProvider theme={isDarkTheme ? createTheme(dark) : createTheme(light)}>
-      <CssBaseline />
-      <Container>
-        <div className="App">
-          <Box component="div" p={5}></Box>
-          <Card>
-            <CardHeader
-              action={
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Switch checked={isDarkTheme} onChange={changeTheme} />
-                    }
-                    label="Dark Theme"
-                  />
-                </FormGroup>
-              }
-            />
-          </Card>
-        </div>
-      </Container>
-    </ThemeProvider>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Home />}></Route>
+          <Route exact path="/about" element={<About />}></Route>
+          <Route exact path="/AllCourses" element={<AllCourses />}></Route>
+          <Route exact path="/login" element={<Login />}></Route>
+          <Route exact path="/signup" element={<Register />}></Route>
+          <Route exact path="/TeachOnWhatever" element={<Register />}></Route>
+          <Route exact path="/Cart" element={<Cart />}></Route>
+          <Route exact path="/MyCourses" element={<MyCourses />}></Route>
+          <Route
+            exact
+            path="/teacherprofile"
+            element={<TeacherProfile />}
+          ></Route>
+          <Route
+            exact
+            path="/studentprofile"
+            element={<StudentProfile />}
+          ></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
-};
+}
 
 export default App;
