@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import Avatar from "@mui/material/Avatar";
 import Paper from "@mui/material/Paper";
 import Swal from "sweetalert2";
+import $ from "jquery";
 import {
   Container,
   TextField,
@@ -10,14 +11,20 @@ import {
   Box,
   Grid,
   IconButton,
+  Switch,
+  FormControlLabel,
+  CssBaseline,
 } from "@mui/material";
-import { Cookie, PhotoCamera } from "@mui/icons-material";
+import { PhotoCamera } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
 // import { borderRadius } from "@mui/system";
-import { useState } from "react";
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import jwt_decode from "jwt-decode";
+import "@fontsource/roboto";
+import { useState } from "react";
 
 const StudentProfile = () => {
   const [studentname, setstudentname] = useState("");
@@ -29,7 +36,118 @@ const StudentProfile = () => {
   const [studentage, setstudentage] = useState(0);
 
   const [picChosen, setpicChosen] = useState({});
-  const [uploadedImg, setuploadedImg] = useState();
+  const [uploadedImg, setuploadedImg] = useState("");
+
+  const [decodedToken, setdecodedToken] = useState({});
+
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("html").css({
+        "background-color": "black",
+        color: "white",
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("header").css({
+        "background-color": "lightgrey",
+        color: "black",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("a").css({
+        color: "black",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("h1").css({
+        color: "black",
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("#building").css({
+        color: "black",
+        "background-color": "#b4b4b4",
+
+        border: "solid grey",
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#light").hide(function () {});
+  });
+
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $("html").css({
+        "background-color": "white",
+        color: "black",
+      });
+    });
+  });
+
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $("header").css({
+        "background-color": "black",
+        color: "white",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $("a").css({
+        color: "#f70776",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $("h1").css({
+        color: "#f70776",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $(this).css({
+        color: "black",
+        "background-color": "black",
+        color: "transparent",
+        border: "solid #f70776",
+      });
+    });
+  });
+  $(document).ready(function () {
+    $("#dark").click(function () {
+      $("#light").show(2000);
+      $("#dark").hide(2000);
+    });
+  });
+  $(document).ready(function () {
+    $("#light").click(function () {
+      $(this).hide(function () {
+        $("#dark").show(function () {});
+      });
+    });
+  });
+
+  var Token = Cookies.get("AcessToken");
+  useEffect(() => {
+    if (Token) {
+      setdecodedToken(jwt_decode(Token) || "");
+    }
+  }, []);
 
   const uploadPic = () => {
     const picd = new FormData();
@@ -50,28 +168,62 @@ const StudentProfile = () => {
     navigate(teacherprofile);
   };
   const deleteStudent = () => {
-    axios.delete(`http://localhost:3000/api/users/${Cookies.get("idusers")}`);
-  };
-  const EditStudent = () => {
-    axios
-      .put(`http://localhost:3000/api/users/${Cookies.get("idusers")}/put`, {
-        name: studentname,
-        lastname: studentlastname,
-        username: studentusername,
-        email: studentmail,
-        password: studentpassword,
-        address: studentaddress,
-        img: uploadedImg,
-        age: studentage,
-        role: 0,
-      })
-      .then((res) => {
-        console.log(res);
-      });
+    axios.delete(`http://127.0.0.1:5173/api/users/${decodedToken.idusers}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    });
   };
 
+  const EditStudent = () => {
+    // if (studentname === "") {
+    //   setstudentname(studentname);
+    // } else if (studentlastname === "") {
+    //   setstudentlastname(studentlastname);
+    // } else if (studentusername === "") {
+    //   setstudentusername(studentusername);
+    // } else if (studentmail === "") {
+    //   setstudentmail(studentmail);
+    // } else if (studentpassword === "") {
+    //   setstudentpassword(studentpassword);
+    // } else if (studentaddress === "") {
+    //   setstudentaddress(studentaddress);
+    // } else if (studentage === "") {
+    //   setstudentage(studentage);
+    // } else if (uploadedImg === "") {
+    //   setuploadedImg(uploadedImg);
+    // }
+    axios
+      .put(
+        `http://127.0.0.1:5173/api/users/${decodedToken.idusers}/put`,
+
+        {
+          name: studentname,
+          lastname: studentlastname,
+          username: studentusername,
+          email: studentmail,
+          password: studentpassword,
+          address: studentaddress,
+          img: uploadedImg,
+          age: studentage,
+          role: 0,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        }
+      )
+      .then((res) => {
+        Cookies.set("AcessToken", res.data);
+        setdecodedToken(jwt_decode(Cookies.get("AcessToken")));
+        Token = res.data;
+      });
+  };
   return (
     <div>
+      <button id="dark">Dark Mode</button>
+      <button id="light">Light Mode</button>
       <Container
         id="wrapperstudent"
         sx={{
@@ -93,7 +245,7 @@ const StudentProfile = () => {
         </Typography>
         <Avatar
           alt="Remy Sharp"
-          src={Cookies.get("img")}
+          src={decodedToken.img}
           sx={{
             width: 300,
             height: 300,
@@ -146,8 +298,7 @@ const StudentProfile = () => {
               sx={{ fontFamily: " 'Raleway', sans-serif" }}
               variant="overline"
             >
-              {" "}
-              Update{" "}
+              Update
             </Typography>
           </Button>
         </Grid>
@@ -161,7 +312,8 @@ const StudentProfile = () => {
                 setstudentname(e.target.value);
               }}
               id="inputnamestudent  "
-              label={studentname}
+              label={decodedToken.name}
+              value={studentname}
               variant="standard"
             ></TextField>
           </Grid>
@@ -174,7 +326,8 @@ const StudentProfile = () => {
                 setstudentlastname(e.target.value);
               }}
               id="inputlastnameteacher"
-              label={studentlastname}
+              label={decodedToken.lastname}
+              defaultValue={studentlastname}
               variant="standard"
             ></TextField>
           </Grid>
@@ -185,9 +338,11 @@ const StudentProfile = () => {
             <TextField
               onChange={(e) => {
                 setstudentusername(e.target.value);
+                console.log(studentusername);
               }}
               id="inputusernamestudent"
-              label={studentusername}
+              label={decodedToken.username}
+              defaultValue={studentusername}
               variant="standard"
             ></TextField>
           </Grid>
@@ -201,7 +356,8 @@ const StudentProfile = () => {
                 setstudentmail(e.target.value);
               }}
               id="inputmailstudent"
-              label={studentmail}
+              label={decodedToken.email}
+              defaultValue={studentmail}
               variant="standard"
               type="email"
             ></TextField>
@@ -215,7 +371,8 @@ const StudentProfile = () => {
                 setstudentpassword(e.target.value);
               }}
               id="inputpasswordstudent"
-              label={studentpassword}
+              label="******"
+              defaultValue={studentpassword}
               variant="standard"
               type="password"
             ></TextField>
@@ -229,7 +386,8 @@ const StudentProfile = () => {
                 setstudentaddress(e.target.value);
               }}
               id="inputaddressstudent"
-              label={studentaddress}
+              label={decodedToken.address}
+              defaultValue={studentaddress}
               variant="standard"
             ></TextField>
           </Grid>
@@ -240,10 +398,12 @@ const StudentProfile = () => {
             </Typography>
             <TextField
               onChange={(e) => {
+                console.log(e.target.value);
                 setstudentage(e.target.value);
               }}
               id="inputagestudent"
-              label={studentage}
+              label={decodedToken.age}
+              defaultValue={studentage}
               variant="standard"
               type="number"
               inputProps={{ min: "15", max: "90", step: "1" }}
@@ -287,7 +447,9 @@ const StudentProfile = () => {
 
           <Grid xs={12} sx={{ my: "50px", ml: "600px", mt: "-100px" }}>
             <Button
-              onClick={EditStudent}
+              onClick={(e) => {
+                EditStudent();
+              }}
               sx={{
                 mt: "-280px",
                 ml: "-20px",

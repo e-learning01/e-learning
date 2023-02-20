@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`categories` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
-
+DELETE FROM `e-learning`.`users` WHERE (`idusers` = '15');
+DELETE FROM `e-learning`.`users` WHERE (`idusers` = '16');
 
 -- -----------------------------------------------------
 -- Table `e-learning`.`users`
@@ -43,9 +44,10 @@ CREATE TABLE IF NOT EXISTS `e-learning`.`users` (
   `img` VARCHAR(450) NOT NULL,
   `age` INT NOT NULL,
   `role` INT NOT NULL,
-  `speciality` VARCHAR(50) NOT NULL,
+  `speciality` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`idusers`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 13
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 

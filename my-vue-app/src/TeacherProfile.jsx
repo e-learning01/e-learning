@@ -20,7 +20,13 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
-
+import jwt_decode from "jwt-decode";
+var decodedTokenteacher;
+const Tokenteacher = Cookies.get("AcessToken");
+if (Tokenteacher) {
+  decodedTokenteacher = jwt_decode(Tokenteacher) || "";
+}
+console.log(decodedTokenteacher);
 const TeacherProfile = () => {
   const [teachername, setteachername] = useState("");
   const [teacherlastname, setteacherlastname] = useState("");
@@ -42,8 +48,8 @@ const TeacherProfile = () => {
       .post("https://api.cloudinary.com/v1_1/du5ydewvs/image/upload", pict)
       .then((res) => {
         console.log(res.data);
-        const uploadedimage = res.data.secure_url;
-        setuploadedImage(uploadedimage);
+        const uploadedImage = res.data.secure_url;
+        setuploadedImage(uploadedImage);
       });
   };
   let navigate = useNavigate();
@@ -53,25 +59,60 @@ const TeacherProfile = () => {
   };
 
   const deleteTeacher = () => {
-    axios.delete(`http://localhost:3000/api/users/${Cookies.get("idusers")}`);
+    axios.delete(
+      `http://127.0.0.1:5173/api/users/${decodedTokenteacher.idusers}`,
+      {
+        headers: {
+          Authorization: `Bearer ${Tokenteacher}`,
+        },
+      }
+    );
   };
   const EditTeacher = () => {
-    axios
-      .put(`http://localhost:3000/api/users/${Cookies.get("idusers")}/put`, {
-        name: teachername,
-        img: uploadedImage,
-        lastname: teacherlastname,
-        username: teacherusername,
-        specialty: teacherspeciality,
-        email: teachermail,
-        password: teacherpassword,
-        address: teacheraddress,
-        age: teacherage,
-        role: 1,
-      })
-      .then((res) => {
-        console.log(res);
-      });
+    if (teachername === "") {
+      setteachername(teachername);
+    } else if (teacherlastname === "") {
+      setteacherlastname(teacherlastname);
+    } else if (teacherusername === "") {
+      setteacherusername(teacherusername);
+    } else if (teacherspeciality === "") {
+      setteacherspecialty(teacherspeciality);
+    } else if (teachermail === "") {
+      setteachermail(teachermail);
+    } else if (teacherpassword === "") {
+      setteacherpassword(teacherpassword);
+    } else if (teacheraddress === "") {
+      setteacheraddress(teacheraddress);
+    } else if (teacherage === "") {
+      setteacherage(teacherage);
+    } else if (uploadedImage === "") {
+      setuploadedImage(uploadedImage);
+    } else {
+      axios
+        .put(
+          `http://127.0.0.1:5173/api/users/${decodedTokenteacher.idusers}/put`,
+          {
+            name: teachername,
+            img: uploadedImage,
+            lastname: teacherlastname,
+            username: teacherusername,
+            specialty: teacherspeciality,
+            email: teachermail,
+            password: teacherpassword,
+            address: teacheraddress,
+            age: teacherage,
+            role: 1,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${Tokenteacher}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+        });
+    }
   };
 
   return (
@@ -97,7 +138,7 @@ const TeacherProfile = () => {
         </Typography>
         <Avatar
           alt="Remy Sharp"
-          src={uploadedImage}
+          src={decodedTokenteacher.img}
           sx={{
             width: 300,
             height: 300,
@@ -168,7 +209,7 @@ const TeacherProfile = () => {
                 setteachername(e.target.value);
               }}
               id="inputnameteacher "
-              label={teachername}
+              label={decodedTokenteacher.name}
               variant="standard"
             ></TextField>
           </Grid>
@@ -181,7 +222,7 @@ const TeacherProfile = () => {
                 setteacherlastname(e.target.value);
               }}
               id="inputlastnamestudent"
-              label={teacherlastname}
+              label={decodedTokenteacher.lastname}
               variant="standard"
             ></TextField>
           </Grid>
@@ -194,7 +235,7 @@ const TeacherProfile = () => {
                 setteacherusername(e.target.value);
               }}
               id="inputusernameteacher"
-              label={teacherusername}
+              label={decodedTokenteacher.username}
               variant="standard"
             ></TextField>
           </Grid>
@@ -207,7 +248,7 @@ const TeacherProfile = () => {
                 setteacherspecialty(e.target.value);
               }}
               id="inputspecialityteacher"
-              label={teacherspeciality}
+              label={decodedTokenteacher.specialty}
               variant="standard"
             ></TextField>
           </Grid>
@@ -220,7 +261,7 @@ const TeacherProfile = () => {
                 setteachermail(e.target.value);
               }}
               id="inputmailteacher"
-              label={teachermail}
+              label={decodedTokenteacher.email}
               variant="standard"
               type="email"
             ></TextField>
@@ -234,7 +275,7 @@ const TeacherProfile = () => {
                 setteacherpassword(e.target.value);
               }}
               id="inputpasswordteacher"
-              label={teacherpassword}
+              label="*******"
               variant="standard"
               type="password"
             ></TextField>
@@ -248,7 +289,7 @@ const TeacherProfile = () => {
                 setteacheraddress(e.target.value);
               }}
               id="inputaddressteacher"
-              label={teacheraddress}
+              label={decodedTokenteacher.address}
               variant="standard"
             ></TextField>
           </Grid>
@@ -261,7 +302,7 @@ const TeacherProfile = () => {
                 setteacherage(e.target.value);
               }}
               id="inputageteacher"
-              label={teacherage}
+              label={decodedTokenteacher.age}
               variant="standard"
               type="number"
               inputProps={{ min: "25", max: "90", step: "1" }}

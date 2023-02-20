@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
   Container,
   TextField,
@@ -7,10 +9,16 @@ import {
   Box,
   Grid,
   IconButton,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-// import jwtDecode from "jwt-decode";
+import jwt_decode from "jwt-decode";
+import Cookies from "js-cookie";
+
 const AddCourse = () => {
   const [coursename, setcoursename] = useState("");
   const [courseprice, setcourseprice] = useState("");
@@ -20,10 +28,30 @@ const AddCourse = () => {
   const [courseimage, setcourseimage] = useState("");
   const [studentgains, setstudentgains] = useState("");
   const [coursevideo, setcoursevideo] = useState("");
-  const Addcour = (post) => {
-    console.log(post);
+  const [coursecategorie, setcoursecategorie] = useState("");
+  const [picChosena, setpicChosena] = useState("");
+
+  var Token = Cookies.get("AcessToken");
+
+  const decodedToken = jwt_decode(Token) || "";
+
+  const uploadPic = () => {
+    const pica = new FormData();
+    pica.append("file", picChosena);
+    pica.append("upload_preset", "maboz3uf");
+
     axios
-      .post(`http://localhost:3000/api/addCourse`, {
+      .post("https://api.cloudinary.com/v1_1/du5ydewvs/image/upload", pica)
+      .then((res) => {
+        console.log(res.data);
+        const uploadedImga = res.data.secure_url;
+        setpicChosena(uploadedImga);
+      });
+  };
+
+  const Addcour = (post) => {
+    axios
+      .post(`http://127.0.0.1:5173/api/courses/add`, {
         name: coursename,
         price: courseprice,
         description: coursedescription,
@@ -32,15 +60,16 @@ const AddCourse = () => {
         thumbnail: courseimage,
         gains: studentgains,
         video: coursevideo,
-        instructor: data[0].idusers,
-        cat: "",
+        instructor: decodedToken.idusers,
+        cat: coursecategorie,
       })
       .then((res) => {
         console.log(res);
       });
   };
+
   return (
-    <div>
+    <Paper>
       <Container
         id="wrappercourse"
         sx={{
@@ -139,7 +168,8 @@ const AddCourse = () => {
             </Typography>
             <TextField
               onChange={(e) => {
-                setcourseimage(e.target.value);
+                console.log(e.target.files[0]);
+                setcourseimage(e.target.files[0]);
               }}
               id="inputimgcourse"
               label="Thumbnail link "
@@ -176,17 +206,53 @@ const AddCourse = () => {
               variant="standard"
             ></TextField>
           </Grid>
-
+          <Grid xs={6} sx={{ my: "50px" }}>
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel id="cate">Categorie</InputLabel>
+              <Select
+                labelId="cat-select"
+                id="cat-seleect"
+                value={coursecategorie}
+                onChange={(e) => {
+                  setcoursecategorie(e.target.value);
+                }}
+                label="Categorie"
+              >
+                <MenuItem value={1}>Math</MenuItem>
+                <MenuItem value={2}>Science</MenuItem>
+                <MenuItem value={3}>Development</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
           <Grid
-            xs={6}
+            xs={0}
             sx={{
-              my: "50px",
+              my: "70px",
               paddingBottom: "190px",
-              ml: "270px",
+              ml: "230px",
             }}
           >
+            <IconButton
+              onClick={() => {
+                Swal.fire({
+                  titleText: coursename,
+                  text: coursedescription,
+
+                  imageUrl: courseimage,
+                  footer: courseprice,
+                  imageWidth: 400,
+                  imageHeight: 200,
+                  imageAlt: "Custom image",
+                  animation: false,
+                  width: "500px",
+                });
+              }}
+              size="large"
+            >
+              <VisibilityIcon />
+            </IconButton>
             <Button
-              onClick={() => Addcour}
+              onClick={() => Addcour()}
               variant="outlined"
               type="submit"
               sx={{
@@ -280,7 +346,7 @@ const AddCourse = () => {
           </Box>
         </Container>
       </Paper>
-    </div>
+    </Paper>
   );
 };
 export default AddCourse;

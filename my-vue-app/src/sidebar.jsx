@@ -20,6 +20,8 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Brightness2SharpIcon from "@mui/icons-material/Brightness2Sharp";
 import LogoutSharpIcon from "@mui/icons-material/LogoutSharp";
+import LibraryBooksSharpIcon from "@mui/icons-material/LibraryBooksSharp";
+import { Avatar } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -84,7 +86,7 @@ const SideBar = () => {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ bgcolor: "primary" }} open={open}>
+      <AppBar position="fixed" sx={{ bgcolor: "black" }} open={open}>
         <Toolbar>
           <IconButton
             aria-label="open drawer"
@@ -112,6 +114,11 @@ const SideBar = () => {
         anchor="left"
         open={open}
       >
+        <Avatar
+          src="./src/assets/logo-brainlab.png"
+          sx={{ width: "300px", height: "300px", m: "-90px", p: "20px" }}
+        ></Avatar>
+
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "ltr" ? (
@@ -122,7 +129,7 @@ const SideBar = () => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List sx={{ mt: "20px", pt: "20px" }}>
+        <List>
           {["Home", "All Course", "My Courses "].map((text, index) => (
             <ListItem sx={{ my: "40px" }} key={text} disablePadding>
               <ListItemButton>
@@ -135,7 +142,7 @@ const SideBar = () => {
           ))}
         </List>
         <Divider sx={{ mb: "-190px", mt: "200px" }}></Divider>
-        <List sx={{ mt: "120px", pt: "20px" }}>
+        <List sx={{ mt: "17px", pt: "20px" }}>
           {["Dark Mode ", "Log Out"].map((text, index) => (
             <ListItem sx={{ my: "65px" }} key={text} disablePadding>
               <ListItemButton>
