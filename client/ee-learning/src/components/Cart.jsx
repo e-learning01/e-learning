@@ -8,23 +8,23 @@ import axios from 'axios'
 function Cart() {
  
    const {showCart,cartItems,showHideCart,addToCart}=useContext(CartContext)
-   useEffect(() => {
-    const fetchInitialCartItems = async () => {
-        try {
-            const response = await axios.get('http://127.0.0.1:5173/api/learn');
-            if (response.data.length) {
-                // const filteredItems = cartItems.filter(e => e.idCourses === response.data[0].idCourse);
-                // console.log("filteredItems", filteredItems);
-                // console.log("cartItems",cartItems);
-                // addToCart(e);
-                console.log("res",response.data);
-            }
-        } catch (error) {
-            console.log(error);
-        }
-    };
-    fetchInitialCartItems();
-}, []);
+//    useEffect(() => {
+//     const fetchInitialCartItems = async () => {
+//         try {
+//             const response = await axios.get('http://127.0.0.1:5173/api/learn');
+//             if (response.data.length) {
+//                 const filteredItems = response.data.filter(e => e.iduser === response.data[0].idcourse);
+//                 console.log("filteredItems", filteredItems);
+//                 console.log("cartItems",cartItems);
+//                 addToCart(filteredItems);
+//                 console.log("res",response.data);
+//             }
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     };
+//     fetchInitialCartItems();
+// }, []);
  
   
    

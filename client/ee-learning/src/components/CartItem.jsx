@@ -15,17 +15,15 @@ function CartItem(props) {
     
   
 
-   const handleremove = async (idus) => {
-    await removeItem(props.item.idcourses);
-    axios.delete("http://127.0.0.1:5173/api/learn/delete", {
-    
-        iduser: idus.iduser
-      
-    }).then((res)=>{
+   const handleremove = () => {
+    axios.delete(`http://127.0.0.1:5173/api/learn/delete/${idus.idusers}`)
+      .then((res)=>{
       console.log(res);
     }).catch((err)=>{
       console.log(err);
     });
+     removeItem(props.item.idcourses);
+
   };
 
 
@@ -36,7 +34,7 @@ function CartItem(props) {
    <img src={props.item.thumbnail} alt="" className='CartItem_image'/>
    <div>
     {props.item.name} {props.item.price}&nbsp;TND
-    <button className='CartItem__button' onClick={()=>{handleremove(idus.idusers)}}>Remove</button>
+    <button className='CartItem__button' onClick={()=>{handleremove()}}>Remove</button>
    </div>
 
     </li>

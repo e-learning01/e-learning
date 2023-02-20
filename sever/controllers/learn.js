@@ -16,7 +16,8 @@ module.exports= {
     },
     deleteItems : async (req,res) => {
         try{
-            const items = await deleteItem(req.body.iduser) ;
+            
+            const items = await deleteItem(req.params.id) ;
             res.sendStatus(200).send(items)
         } 
             catch(err) {
