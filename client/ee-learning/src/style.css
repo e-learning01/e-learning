@@ -99,11 +99,11 @@ nav {
     margin-right: 10px;
   }
   
-  nav .browse-courses-btn:hover, nav .signup-btn:hover {
+   nav .browse-courses-btn:hover, nav .signup-btn:hover {
     cursor: pointer;
     background-color: #0052CC;
     
-  }
+  } 
   
 
   footer {
@@ -145,7 +145,7 @@ nav {
     font-family: 'Raleway' ,sans-serif;
   }
 
-  /* .d{
+  .d{
     height: 88vh;
     width: 100%;
     display: flex;
@@ -154,7 +154,7 @@ nav {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-  } */
+  }
   .card-container {
     display: flex;
     flex-wrap: wrap;
@@ -170,7 +170,7 @@ nav {
   }
   .card {
     width: 190px;
-    height: 503px;
+    height: 535px;
     padding: .8em;
     background: #f5f5f5;
     position: relative;
@@ -204,9 +204,9 @@ nav {
     align-items: center;
     padding-top: 10px;
     border-top: 1px solid #ddd;
-   }
+   } 
    
-   /*Text*/
+ 
    .text-title {
     font-weight: 900;
     font-size: 1.2em;
@@ -229,17 +229,17 @@ nav {
     padding-bottom: 10px;
    }
    
-   /*Button*/
-   .card-button {
+   
+    .card-button {
     border: 1px solid #252525;
     display: flex;
     padding: .3em;
     cursor: pointer;
     border-radius: 50px;
     transition: .3s ease-in-out;
-   }
+   } */
    
-   /*Hover*/
+   
    .card-img:hover {
     transform: translateY(-25%);
     box-shadow: rgba(226, 196, 63, 0.25) 0px 13px 47px -5px, rgba(180, 71, 71, 0.3) 0px 8px 16px -8px;
@@ -248,7 +248,7 @@ nav {
    .card-button:hover {
     border: 1px solid #ffcaa6;
     background-color: #ffcaa6;
-   }
+   } 
    
    
    .item_count {
@@ -273,5 +273,166 @@ nav {
     padding: 10px;
   }
   
-  
+  /* .button-explore {
+    position: relative;
+    height: 30px;
+    padding: 0 30px;
+    border: 2px  white;
+    background: #f774c5;
+    user-select: none;
+    white-space: nowrap;
+    transition: all .05s linear;
+    font-family: inherit;
+   }
+   
+   .button-explore:before,  .button-explore:after {
+    content: "";
+    position: absolute;
+    background: #f774c5;
+    transition: all .2s linear;
+   }
+   
+   .button-explore:before {
+    width: calc(100% + 6px);
+    height: calc(100% - 16px);
+    top: 8px;
+    left: -3px;
+   }
+   
+   .button-explore:after {
+    width: calc(100% - 16px);
+    height: calc(100% + 6px);
+    top: -3px;
+    left: 8px;
+   }
+   
+   .button-explore:hover {
+    cursor: crosshair;
+   }
+   
+   .button-explore:active {
+    transform: scale(0.95);
+   }
+   
+   .button-explore:hover:before {
+    height: calc(100% - 32px);
+    top: 16px;
+   }
+   
+   .button-explore:hover:after {
+    width: calc(100% - 32px);
+    left: 16px;
+   }
+   
+   .button-explore span {
     
+    z-index: 3;
+    position: relative;
+    font-weight: 100;
+    color: aliceblue;
+   }
+    */
+    .button-explore {
+      align-items: center;
+      background-color: transparent;
+      color: #f774c5;
+      cursor: pointer;
+      display: flex;
+      font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+      font-size: 1rem;
+      font-weight: 700;
+      line-height: 1.5;
+      text-decoration: none;
+      
+      outline: 0;
+      border: 0;
+      padding: 1rem;
+    }
+    
+    .button-explore:before {
+      background-color: #f774c5;
+      content: "";
+      display: inline-block;
+      height: 1px;
+      margin-right: 10px;
+      transition: all .42s cubic-bezier(.25,.8,.25,1);
+      width: 0;
+    }
+    
+    .button-explore:hover:before {
+      background-color: #f774c5;
+      width: 3rem;
+    }
+
+
+
+    .cardd {
+      width: 17em;
+      height: 22.5em;
+      background: #171717;
+      transition: 1s ease-in-out;
+      clip-path: polygon(30px 0%, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0% 30px);
+      border-top-right-radius: 20px;
+      border-bottom-left-radius: 20px;
+    }
+    
+    .cardd span {
+      font-weight: bold;
+      color: white;
+      text-align: center;
+      display: block;
+      padding-top: 1em;
+      font-size: 1em;
+    }
+    
+    .cardd .info {
+      font-weight: 400;
+      color: white;
+      display: block;
+      text-align: center;
+      padding-top: 0.1em;
+      font-size: 0.72em;
+      margin: 1em;
+      margin-top: 1em;
+    }
+    
+    .cardd .img {
+      width: 4.8em;
+      height: 4.8em;
+      background: white;
+      border-radius: 15px;
+      margin: auto;
+      margin-top: 1.7em;
+    }
+    
+    .cardd .share {
+      text-align: center;
+      margin-top: 1.8em;
+    }
+    
+    .cardd a {
+      color: white;
+      transition: .4s ease-in-out;
+    }
+    
+    .cardd a:hover {
+      color: rgb(36, 116, 221);
+    }
+    
+    .cardd button {
+      padding: 0.8em 1.7em;
+      display: block;
+      margin: auto;
+      border-radius: 25px;
+      border: none;
+      margin-top: 2em;
+      font-weight: bold;
+      background: #ffffff;
+      color: rgb(0, 0, 0);
+      transition: .4s ease-in-out;
+    }
+    
+    .cardd button:hover {
+      background: rgb(36, 116, 221);
+      color: white;
+    }

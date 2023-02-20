@@ -11,6 +11,7 @@ import "./style.css"
 import TeachOnWhatever from './components/TeachOnWhatever.jsx';
 import ContactUs from "./components/ContactUs.jsx"
 import MyCourses from './components/MyCourses.jsx';
+import GameOn from './components/GameOn.jsx';
 
 
 
@@ -36,6 +37,7 @@ function App() {
     <Route exact path="/ContactUs" element={<ContactUs/>}></Route>
     <Route exact path="/Cart" element={<Cart/>}></Route>
     <Route exact path="/MyCourses" element={<MyCourses/>}></Route>
+    <Route exact path="/gameOn" element={<GameOn />}></Route>
   </Routes>
   <footer>
   <div className='fo'>

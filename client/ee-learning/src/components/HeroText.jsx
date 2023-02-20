@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 
@@ -6,6 +7,7 @@ import styled from "styled-components";
 
 
 const HeroText = () => {
+  const navigate=useNavigate()
     return (
       <Container>
         <h5>Online education for people of all ages</h5>
@@ -14,8 +16,8 @@ const HeroText = () => {
         <h1>Anytime.</h1>
         <h1>Anywhere.</h1>
         <BtnContainer>
-          <button className="readmore">Read More</button>
-          <button>7 Day Free Trial</button>
+          <button className="readmore" onClick={()=>{navigate("/About")}}>Read More</button>
+          <button onClick={()=>{navigate("/login")}}>Get Started!</button>
         </BtnContainer>
       </Container>
    
